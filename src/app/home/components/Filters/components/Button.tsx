@@ -3,12 +3,14 @@ import { ReactNode } from 'react'
 
 interface ButtonFilterProps extends ButtonProps {
     children: ReactNode
+    active: boolean
 }
 
-export function ButtonFilter({ children, ...props }: ButtonFilterProps) {
+export function ButtonFilter({ children, active, ...props }: ButtonFilterProps) {
     return (
         <Button
-            bg="gray.100"
+            bg={active ? 'green' : 'gray.100'}
+            color={active ? 'white' : ''}
             p="0px 18px"
             h="35px"
             value="rosto"

@@ -1,20 +1,35 @@
 'use client'
-import { Button, Flex, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { useState } from 'react'
 import { ButtonFilter } from './components/Button'
 
 export function Filters() {
-    const [value, setValue] = useState<string>('')
+    const [value, setValue] = useState('rosto')
+
+    function handleAlterFilter(option: string) {
+        setValue(option)
+    }
 
     return (
         <Flex mt="0.5rem" gap="1rem" alignItems="center">
-            <ButtonFilter bg="green" color="#fff">
+            <ButtonFilter onClick={() => handleAlterFilter('todas')} active={value === 'todas'}>
                 Todas
             </ButtonFilter>
-            <ButtonFilter>Rosto</ButtonFilter>
-            <ButtonFilter>Lábios </ButtonFilter>
-            <ButtonFilter>Olhos</ButtonFilter>
-            <ButtonFilter>Skin Care</ButtonFilter>
+            <ButtonFilter onClick={() => handleAlterFilter('rosto')} active={value === 'rosto'}>
+                Rosto
+            </ButtonFilter>
+            <ButtonFilter onClick={() => handleAlterFilter('labios')} active={value === 'labios'}>
+                Lábios{' '}
+            </ButtonFilter>
+            <ButtonFilter onClick={() => handleAlterFilter('olhos')} active={value === 'olhos'}>
+                Olhos
+            </ButtonFilter>
+            <ButtonFilter
+                onClick={() => handleAlterFilter('skincare')}
+                active={value === 'skincare'}
+            >
+                Skin Care
+            </ButtonFilter>
         </Flex>
     )
 }
