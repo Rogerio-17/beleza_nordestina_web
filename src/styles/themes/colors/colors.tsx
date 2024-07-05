@@ -8,5 +8,5 @@ export const colors = {
         400: '#c0c0c0',
     },
     white: '#fff',
-    green: '#B7BF78',
+    green: '#5EA835',
 }

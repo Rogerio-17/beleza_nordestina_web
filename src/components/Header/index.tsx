@@ -1,16 +1,17 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import { Center } from '../Center'
 import { Search } from '../Search'
 import { ChatIcon } from '../../Icons/ChatIcon'
 import { UserCircleIcon } from '@/Icons/UserCicle'
 import { ShoppingBagIcon } from '@/Icons/ShoppingBag'
+import logo from '@/assets/logo/logo.png'
 
 export function Header() {
     return (
         <Flex as="header" borderBottom="1px solid #c8c6c6">
-            <Center p="1.3rem" justifyContent="space-between">
+            <Center justifyContent="space-between" alignItems="center">
                 <Flex alignItems="center" gap="1rem">
-                    <Text fontSize="1.5rem">Logo</Text>
+                    <Image src={logo.src} w="120px" h="120px" _ />
                     <Search w="30rem" />
                 </Flex>
 

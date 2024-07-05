@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ButtonFilter } from './components/Button'
 
 export function Filters() {
-    const [value, setValue] = useState('rosto')
+    const [value, setValue] = useState('todas')
 
     function handleAlterFilter(option: string) {
         setValue(option)

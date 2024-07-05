@@ -20,7 +20,7 @@ export const theme = extendTheme({
 
             body: {
                 overflowX: 'hidden',
-                background: '#fff',
+                background: '#fafafa',
                 color: 'black',
             },
 
