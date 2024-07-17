@@ -1,4 +1,4 @@
-import { Avatar, Flex, Grid, GridItem, Text, Textarea } from '@chakra-ui/react'
+import { Avatar, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 
 export function ListComments() {
     return (

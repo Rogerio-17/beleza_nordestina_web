@@ -1,9 +1,13 @@
 'use client'
-import { Button, Flex } from '@chakra-ui/react'
+import { Button, Flex, FlexProps } from '@chakra-ui/react'
 import { useState } from 'react'
 
-export function CountComponent() {
-    const [count, setCount] = useState(0)
+interface CountComponentProps extends FlexProps {
+    quantity?: number
+}
+
+export function CountComponent({ quantity, ...props }: CountComponentProps) {
+    const [count, setCount] = useState(quantity ?? 0)
 
     function handleSetCountSum() {
         setCount((state) => state + 1)
@@ -14,7 +18,7 @@ export function CountComponent() {
     }
 
     return (
-        <Flex gap="8px" alignItems="center" border="1px solid #c9c8c8">
+        <Flex gap="8px" alignItems="center" border="1px solid #c9c8c8" {...props}>
             <Button
                 isDisabled={count <= 0}
                 minW={0}
@@ -23,6 +27,9 @@ export function CountComponent() {
                 w="35px"
                 fontSize="1.2rem"
                 lineHeight="0px"
+                bg="#fff"
+                _hover="none"
+                _active="none"
                 onClick={handleSetCountSubtraction}
             >
                 -
@@ -35,6 +42,9 @@ export function CountComponent() {
                 w="35px"
                 fontSize="1.2rem"
                 lineHeight="0px"
+                bg="#fff"
+                _hover="none"
+                _active="none"
                 onClick={handleSetCountSum}
             >
                 +

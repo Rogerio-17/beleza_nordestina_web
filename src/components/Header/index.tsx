@@ -88,7 +88,7 @@ export function Header() {
                             Seja bem-vindo(a) <strong>Visitante</strong>
                         </Text>
                     </Flex>
-                    <Flex>
+                    <Link display="flex" as={NextLink} href="/bag">
                         <ShoppingBagIcon w="35px" h="35px" color="green" />{' '}
                         <Box
                             lineHeight="18px"
@@ -99,9 +99,9 @@ export function Header() {
                             borderRadius="50%"
                             color="white"
                         >
-                            0
+                            2
                         </Box>
-                    </Flex>
+                    </Link>
                 </Flex>
             </Center>
         </Flex>
