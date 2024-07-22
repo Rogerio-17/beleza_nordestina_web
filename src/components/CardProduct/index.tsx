@@ -4,8 +4,13 @@ import { FormatPrice } from '@/utils/FormatPrice'
 import { ButtonComponent } from '../ButtonComponent'
 import { CountComponent } from '../CountComponent'
 import NextLink from 'next/link'
+import { ProductProps } from '@/app/home'
 
-export function CardProduct() {
+interface CardProductProps {
+    data: ProductProps
+}
+
+export function CardProduct({ data }: CardProductProps) {
     return (
         <Flex
             flexDirection="column"
@@ -32,11 +37,11 @@ export function CardProduct() {
                 cursor="pointer"
             >
                 <Text textAlign="center" fontSize="1.1rem" lineHeight="16px" fontWeight="500">
-                    Descubra um olhar intenso e volumoso com nosso rímel
+                    {data?.title}
                 </Text>
 
                 <Text textAlign="center" fontSize="2rem" fontWeight="bold" color="green">
-                    {FormatPrice(27.5)}
+                    {FormatPrice(data?.amount ? data.amount : 0)}
                 </Text>
             </Flex>
 
