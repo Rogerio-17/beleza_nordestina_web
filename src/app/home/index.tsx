@@ -14,6 +14,7 @@ export interface ProductProps {
     id: string
     cod_product: string
     amount: number
+    images: string[]
 }
 
 export default async function Home() {
@@ -33,6 +34,7 @@ export default async function Home() {
                     id: prod.data().id,
                     cod_product: prod.data().cod_product,
                     amount: prod.data().amount,
+                    images: prod.data().images,
                 })
             })
         })

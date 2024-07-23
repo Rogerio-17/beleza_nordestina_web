@@ -24,8 +24,8 @@ export function CardProduct({ data }: CardProductProps) {
             bg="#fff"
             mb="1rem"
         >
-            <Flex as={NextLink} href={`/details/123`} w="100%" cursor="pointer">
-                <Image src={image.src} h="250px" w="100%" />
+            <Flex as={NextLink} href={`/details/${data?.id}`} w="100%" cursor="pointer">
+                <Image src={!!data?.images && data.images[0]} h="250px" w="100%" />
             </Flex>
 
             <Flex
@@ -33,7 +33,7 @@ export function CardProduct({ data }: CardProductProps) {
                 mt="1rem"
                 gap="1rem"
                 as={NextLink}
-                href={`/details/123`}
+                href={`/details/${data?.id}`}
                 cursor="pointer"
             >
                 <Text textAlign="center" fontSize="1.1rem" lineHeight="16px" fontWeight="500">

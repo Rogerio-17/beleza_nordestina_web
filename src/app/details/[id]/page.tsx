@@ -5,6 +5,10 @@ import { ListDetails } from './components/ListDetails'
 import { RelatedProducts } from './components/RelatedProducts'
 import { AddComments } from './components/AddComment'
 import { ListComments } from './components/ListComments'
+import { ProductProps } from '@/app/home'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '@/connection/firebase'
+import { useProductsContext } from '@/context'
 
 interface DetailsProps {
     params: {
@@ -12,12 +16,36 @@ interface DetailsProps {
     }
 }
 
-export default function Details({ params }: DetailsProps) {
+export default async function Details({ params }: DetailsProps) {
+    const data: ProductProps[] = []
+
+    const productRef = collection(db, 'products')
+    await getDocs(productRef)
+        .then((product) => {
+            product.forEach((prod) => {
+                data.push({
+                    brand: prod.data().brand,
+                    title: prod.data().title,
+                    category: prod.data().category,
+                    description: prod.data().description,
+                    id: prod.data().id,
+                    cod_product: prod.data().cod_product,
+                    amount: prod.data().amount,
+                    images: prod.data().images,
+                })
+            })
+        })
+        .catch(() => {
+            alert('Erro ao buscar dados!')
+        })
+
+    const filterProductDetail = data.filter((product) => params.id === product.id)
+
     return (
         <Center flexDirection="column" gap="5rem">
             <Flex mt="2rem" h="30rem" gap="1.5rem">
-                <ListImages />
-                <ListDetails />
+                <ListImages images={filterProductDetail[0].images} />
+                <ListDetails productDetail={filterProductDetail[0]} />
             </Flex>
             <Flex flexDirection="column" gap="1rem">
                 <AddComments />

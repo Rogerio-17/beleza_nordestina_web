@@ -1,13 +1,12 @@
 'use client'
-import { Flex, Image, Text } from '@chakra-ui/react'
-import rimel from '@/assets/rimel.jpg'
-import rimel2 from '@/assets/rimel2.png'
-import rimel3 from '@/assets/rimel3.jpg'
+import { Flex, Image } from '@chakra-ui/react'
 import { useState } from 'react'
 
-const images = [rimel.src, rimel2.src, rimel3.src]
+interface ListImagesProps {
+    images: string[]
+}
 
-export function ListImages() {
+export function ListImages({ images }: ListImagesProps) {
     const [imageSelected, setImageSelected] = useState(images[0])
 
     function handleAlterImage(url: string) {

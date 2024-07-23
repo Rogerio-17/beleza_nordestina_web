@@ -2,18 +2,24 @@
 import { ProductProps } from '@/app/home'
 import { db } from '@/connection/firebase'
 import { collection, getDocs } from 'firebase/firestore'
-import { useCallback, useState } from 'react'
+import { createContext, useCallback, useContext } from 'react'
 
-export function useProducts() {
-    const [products, setProducts] = useState<ProductProps[]>([])
+interface ProductContextType {
+    products: ProductProps[]
+}
 
-    const listProducts = async () => {
+const ProductsContext = createContext<ProductContextType>({} as ProductContextType)
+
+export const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
+    const products: ProductProps[] = []
+
+    useCallback(async () => {
         const productRef = collection(db, 'products')
         await getDocs(productRef)
             .then((product) => {
                 console.log(product)
                 product.forEach((prod) => {
-                    const test = {
+                    products.push({
                         brand: prod.data().brand,
                         title: prod.data().title,
                         category: prod.data().category,
@@ -22,17 +28,25 @@ export function useProducts() {
                         cod_product: prod.data().cod_product,
                         amount: prod.data().amount,
                         images: prod.data().images,
-                    }
-                    setProducts([test])
+                    })
                 })
             })
             .catch(() => {
                 alert('Erro ao buscar dados!')
             })
-    }
+    }, [])
 
-    return {
-        products,
-        listProducts,
-    }
+    /*-------------------------------------------------------------------------------------*/
+
+    return (
+        <ProductsContext.Provider
+            value={{
+                products,
+            }}
+        >
+            {children}
+        </ProductsContext.Provider>
+    )
 }
+
+export const useProductsContext = () => useContext(ProductsContext)
