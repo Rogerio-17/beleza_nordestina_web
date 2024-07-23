@@ -1,13 +1,14 @@
 'use client'
 import { Button, Flex, FlexProps } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface CountComponentProps extends FlexProps {
     quantity?: number
+    handleQuantity: (quantity: number) => void
 }
 
-export function CountComponent({ quantity, ...props }: CountComponentProps) {
-    const [count, setCount] = useState(quantity ?? 0)
+export function CountComponent({ quantity, handleQuantity, ...props }: CountComponentProps) {
+    const [count, setCount] = useState(quantity || 1)
 
     function handleSetCountSum() {
         setCount((state) => state + 1)
@@ -16,6 +17,10 @@ export function CountComponent({ quantity, ...props }: CountComponentProps) {
     function handleSetCountSubtraction() {
         setCount((state) => state - 1)
     }
+
+    useEffect(() => {
+        handleQuantity(count)
+    }, [count])
 
     return (
         <Flex gap="8px" alignItems="center" border="1px solid #c9c8c8" {...props}>
