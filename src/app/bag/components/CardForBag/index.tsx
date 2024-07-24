@@ -1,3 +1,4 @@
+'use client'
 import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import rimel from '@/assets/rimel.jpg'
 import { FormatPrice } from '@/utils/FormatPrice'
@@ -5,6 +6,10 @@ import { CountComponent } from '@/components/CountComponent'
 import { BinIcon } from '@/Icons/BinIcon'
 
 export function CardForBag() {
+    function handleQuantity(quantity: number) {
+        console.log(quantity)
+    }
+
     return (
         <Flex
             bg="#fff"
@@ -35,7 +40,7 @@ export function CardForBag() {
                     </Text>
                 </Flex>
                 <Flex alignItems="center">
-                    <CountComponent quantity={2} h="3rem" />
+                    <CountComponent handleQuantity={handleQuantity} quantity={2} h="3rem" />
                 </Flex>
 
                 <Flex flexDirection="column" alignItems="center" mt="2.5rem" gap="0.5rem">

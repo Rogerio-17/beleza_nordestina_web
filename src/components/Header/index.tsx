@@ -30,7 +30,7 @@ export function Header() {
             <Center justifyContent="space-between" alignItems="center">
                 <Flex alignItems="center" gap="1rem">
                     <Link as={NextLink} href="/">
-                        <Image src={logo.src} w="120px" h="120px" _ />
+                        <Image src={logo.src} w="120px" h="120px" />
                     </Link>
 
                     <Search w="30rem" />

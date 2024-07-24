@@ -52,7 +52,7 @@ export default async function Details({ params }: DetailsProps) {
                 <Divider />
                 <ListComments />
             </Flex>
-            <RelatedProducts />
+            <RelatedProducts products={data} />
         </Center>
     )
 }

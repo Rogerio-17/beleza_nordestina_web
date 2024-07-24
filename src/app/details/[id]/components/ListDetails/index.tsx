@@ -1,3 +1,4 @@
+'use client'
 import { Divider, Flex, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { CountComponent } from '@/components/CountComponent'
@@ -10,6 +11,10 @@ interface ListDetailsProps {
 }
 
 export function ListDetails({ productDetail }: ListDetailsProps) {
+    function handleQuantity(quantity: number) {
+        console.log(quantity)
+    }
+
     return (
         <Flex flexDirection="column" w="50%" position="relative">
             <Flex as="header" flexDirection="column">
@@ -41,7 +46,7 @@ export function ListDetails({ productDetail }: ListDetailsProps) {
                 bottom="0px"
                 w="100%"
             >
-                <CountComponent />
+                <CountComponent handleQuantity={handleQuantity} />
                 <ButtonComponent>Adicionar</ButtonComponent>
             </Flex>
         </Flex>
