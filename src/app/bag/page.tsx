@@ -1,11 +1,35 @@
+'use client'
 import { Center } from '@/components/Center'
 import { Button, Divider, Flex, Text } from '@chakra-ui/react'
 import { CardForBag } from './components/CardForBag'
 import { ButtonComponent } from '@/components/ButtonComponent'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { InformationIcon } from '@/Icons/InformationIcon'
+import { useEffect, useState } from 'react'
+import { ProductProps } from '../home'
+
+interface ArrayProductsProps {
+    data: ProductProps
+    quantity: number
+}
 
 export default function Bag() {
+    const [arrayProduct, setArrayProduct] = useState<ArrayProductsProps[]>([])
+    useEffect(() => {
+        // Verificar se estamos no ambiente do navegador
+        if (typeof window !== 'undefined') {
+            const arrayString = localStorage.getItem('productSelected')
+            const arrayProduct = arrayString ? JSON.parse(arrayString) : []
+            setArrayProduct(arrayProduct)
+        }
+    }, [])
+
+    const totalItens = arrayProduct.reduce((total, produto) => total + produto.quantity, 0)
+    const totalAmount = arrayProduct.reduce(
+        (total, produto) => total + produto.data.amount * produto.quantity,
+        0
+    )
+
     return (
         <Center flexDirection="column" mt="1rem">
             <Text fontSize="2rem" fontWeight="600">
@@ -15,8 +39,15 @@ export default function Bag() {
                     pelo whatsapp).
                 </Text>
             </Text>{' '}
-            <CardForBag />
-            <CardForBag />
+            {arrayProduct.length !== 0 ? (
+                arrayProduct.map((item) => (
+                    <CardForBag product={item.data} quantity={item.quantity} key={item.data.id} />
+                ))
+            ) : (
+                <Text h="40vh" w="100%" display="flex" alignItems="center" justifyContent="center">
+                    Nenhum item na sacola.
+                </Text>
+            )}
             <Flex mt="1rem" flexDirection="column" justifyContent="right" gap="0.5rem">
                 <Text
                     display="flex"
@@ -38,13 +69,13 @@ export default function Bag() {
                     <Text>
                         Itens:{' '}
                         <Text as="strong" fontSize="1rem" lineHeight="1rem">
-                            4
+                            {totalItens}
                         </Text>{' '}
                     </Text>
                     <Text>
                         Total:{' '}
                         <Text as="strong" fontSize="1.25rem" lineHeight="1rem">
-                            {FormatPrice(40)}
+                            {FormatPrice(totalAmount)}
                         </Text>
                     </Text>
                 </Flex>

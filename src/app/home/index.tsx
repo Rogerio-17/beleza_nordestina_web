@@ -18,8 +18,6 @@ export interface ProductProps {
 }
 
 export default async function Home() {
-    const itemCount = 8
-    const fakeArray = Array.from({ length: itemCount }, (_, index) => index)
     const data: ProductProps[] = []
 
     const productRef = collection(db, 'products')

@@ -1,13 +1,16 @@
 'use client'
 import { Button, Flex, Image, Text } from '@chakra-ui/react'
-import rimel from '@/assets/rimel.jpg'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { CountComponent } from '@/components/CountComponent'
 import { BinIcon } from '@/Icons/BinIcon'
+import { useState } from 'react'
+import { ProductProps } from '@/app/home'
 
-export function CardForBag() {
+export function CardForBag({ product, quantity: q }: { product: ProductProps; quantity: number }) {
+    const [quantity, setQuantity] = useState(q)
+
     function handleQuantity(quantity: number) {
-        console.log(quantity)
+        setQuantity(quantity)
     }
 
     return (
@@ -21,12 +24,12 @@ export function CardForBag() {
             justify="space-between"
         >
             <Flex gap="1.5rem" alignItems="center">
-                <Image src={rimel.src} w="150px" h="150px" p="0.5rem " />
+                <Image src={product.images[0]} w="150px" h="150px" p="0.5rem " />
                 <Flex gap="0.5rem" flexDirection="column" w="25rem">
                     <Text fontSize="1.25rem" lineHeight="1.25rem">
-                        Safira - Rìmel Máscara de Cílios Volume Intenso
+                        {product.brand} - {product.title}
                     </Text>
-                    <Text fontSize="0.875rem">Cód: (T321)</Text>
+                    <Text fontSize="0.875rem">Cód: ({product.cod_product})</Text>
                 </Flex>
             </Flex>
 
@@ -36,11 +39,11 @@ export function CardForBag() {
                         Valor unitário
                     </Text>
                     <Text fontSize="1.5rem" color="green" fontWeight="bold" lineHeight="1.5rem">
-                        {FormatPrice(10)}
+                        {FormatPrice(product.amount)}
                     </Text>
                 </Flex>
                 <Flex alignItems="center">
-                    <CountComponent handleQuantity={handleQuantity} quantity={2} h="3rem" />
+                    <CountComponent handleQuantity={handleQuantity} quantity={quantity} h="3rem" />
                 </Flex>
 
                 <Flex flexDirection="column" alignItems="center" mt="2.5rem" gap="0.5rem">
@@ -48,7 +51,7 @@ export function CardForBag() {
                         Valor total
                     </Text>
                     <Text fontSize="1.5rem" color="green" fontWeight="bold" lineHeight="1.5rem">
-                        {FormatPrice(20)}
+                        {FormatPrice(product.amount * quantity)}
                     </Text>
                 </Flex>
 

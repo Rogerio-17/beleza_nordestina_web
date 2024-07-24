@@ -1,3 +1,4 @@
+'use client'
 import {
     Box,
     Button,
@@ -23,8 +24,26 @@ import { PhoneIcon } from '@/Icons/PhoneIcon'
 import { WhatsAppIcon } from '@/Icons/WhatsAppIcon'
 import { MessageIcon } from '@/Icons/MessageIcon'
 import NextLink from 'next/link'
+import { useEffect, useState } from 'react'
+import { ProductProps } from '@/app/home'
+
+interface ArrayProductsProps {
+    data: ProductProps
+    quantity: number
+}
 
 export function Header() {
+    const [arrayProduct, setArrayProduct] = useState<ArrayProductsProps[]>([])
+    useEffect(() => {
+        // Verificar se estamos no ambiente do navegador
+        if (typeof window !== 'undefined') {
+            const arrayString = localStorage.getItem('productSelected')
+            const arrayProduct = arrayString ? JSON.parse(arrayString) : []
+            setArrayProduct(arrayProduct)
+        }
+    }, [])
+
+    const totalItens = arrayProduct.reduce((total, produto) => total + produto.quantity, 0)
     return (
         <Flex as="header" borderBottom="1px solid #c8c6c6">
             <Center justifyContent="space-between" alignItems="center">
@@ -92,14 +111,16 @@ export function Header() {
                         <ShoppingBagIcon w="35px" h="35px" color="green" />{' '}
                         <Box
                             lineHeight="18px"
-                            textAlign="center"
-                            p="0px 5px"
-                            h="20px"
+                            w="22px"
+                            h="22px"
                             bg="green"
-                            borderRadius="50%"
+                            borderRadius="90px"
                             color="white"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
                         >
-                            2
+                            {totalItens}
                         </Box>
                     </Link>
                 </Flex>
