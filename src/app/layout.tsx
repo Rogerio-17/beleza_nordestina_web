@@ -17,10 +17,7 @@ export default function RootLayout({
     return (
         <html lang="pt-br">
             <body className={fonts.inter.variable}>
-                <Providers>
-                    <Header />
-                    {children}
-                </Providers>
+                <Providers>{children}</Providers>
             </body>
         </html>
     )

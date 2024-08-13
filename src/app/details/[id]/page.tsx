@@ -9,6 +9,7 @@ import { ProductProps } from '@/app/home'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '@/connection/firebase'
 import { useProductsContext } from '@/context'
+import { Header } from '@/components/Header'
 
 interface DetailsProps {
     params: {
@@ -42,17 +43,20 @@ export default async function Details({ params }: DetailsProps) {
     const filterProductDetail = data.filter((product) => params.id === product.id)
 
     return (
-        <Center flexDirection="column" gap="5rem">
-            <Flex mt="2rem" h="30rem" gap="1.5rem">
-                <ListImages images={filterProductDetail[0].images} />
-                <ListDetails productDetail={filterProductDetail[0]} />
-            </Flex>
-            <Flex flexDirection="column" gap="1rem">
-                <AddComments />
-                <Divider />
-                <ListComments />
-            </Flex>
-            <RelatedProducts products={data} />
-        </Center>
+        <>
+            <Header />
+            <Center flexDirection="column" gap="5rem">
+                <Flex mt="2rem" h="30rem" gap="1.5rem">
+                    <ListImages images={filterProductDetail[0].images} />
+                    <ListDetails productDetail={filterProductDetail[0]} />
+                </Flex>
+                <Flex flexDirection="column" gap="1rem">
+                    <AddComments />
+                    <Divider />
+                    <ListComments />
+                </Flex>
+                <RelatedProducts products={data} />
+            </Center>
+        </>
     )
 }

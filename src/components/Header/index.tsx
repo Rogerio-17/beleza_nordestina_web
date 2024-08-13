@@ -26,6 +26,7 @@ import { MessageIcon } from '@/Icons/MessageIcon'
 import NextLink from 'next/link'
 import { useEffect, useState } from 'react'
 import { ProductProps } from '@/app/home'
+import { useProductsContext } from '@/context'
 
 interface ArrayProductsProps {
     data: ProductProps
@@ -33,17 +34,13 @@ interface ArrayProductsProps {
 }
 
 export function Header() {
-    const [arrayProduct, setArrayProduct] = useState<ArrayProductsProps[]>([])
-    useEffect(() => {
-        // Verificar se estamos no ambiente do navegador
-        if (typeof window !== 'undefined') {
-            const arrayString = localStorage.getItem('productSelected')
-            const arrayProduct = arrayString ? JSON.parse(arrayString) : []
-            setArrayProduct(arrayProduct)
-        }
-    }, [])
+    const [totalItens, setTotalItens] = useState<number>(0)
+    const { arrayProduct } = useProductsContext()
 
-    const totalItens = arrayProduct.reduce((total, produto) => total + produto.quantity, 0)
+    useEffect(() => {
+        setTotalItens(arrayProduct.reduce((total, produto) => total + produto.quantity!, 0))
+    }, [arrayProduct])
+
     return (
         <Flex as="header" borderBottom="1px solid #c8c6c6">
             <Center justifyContent="space-between" alignItems="center">

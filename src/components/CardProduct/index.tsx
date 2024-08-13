@@ -7,37 +7,18 @@ import { CountComponent } from '../CountComponent'
 import NextLink from 'next/link'
 import { ProductProps } from '@/app/home'
 import { useState } from 'react'
+import { useProductsContext } from '@/context'
 
 interface CardProductProps {
     data: ProductProps
 }
 
 export function CardProduct({ data }: CardProductProps) {
+    const { handleSaveInLocalStorage } = useProductsContext()
     const [quantity, setQuantity] = useState(1)
 
     function handleQuantity(quantity: number) {
         setQuantity(quantity)
-    }
-
-    function handleSaveInLocalStorage() {
-        const product = {
-            data,
-            quantity,
-        }
-
-        // Recuperar o array existente do localStorage, ou inicializar um array vazio se não existir
-        const arrayString = localStorage.getItem('productSelected')
-        let arrayDeObjetos = arrayString ? JSON.parse(arrayString) : []
-
-        // Adicionar o novo objeto ao array
-        arrayDeObjetos.push(product)
-
-        // Converter o array atualizado de volta para uma string JSON
-        const arrayAtualizadoString = JSON.stringify(arrayDeObjetos)
-
-        // Salvar o array atualizado no localStorage
-        localStorage.setItem('productSelected', arrayAtualizadoString)
-        alert('Produto adicionado a sacola.')
     }
 
     return (
@@ -76,7 +57,9 @@ export function CardProduct({ data }: CardProductProps) {
 
             <Flex h="12%" gap="8px" alignItems="flex-end">
                 <CountComponent handleQuantity={handleQuantity} />
-                <ButtonComponent onClick={handleSaveInLocalStorage}>Adicionar</ButtonComponent>
+                <ButtonComponent onClick={() => handleSaveInLocalStorage({ ...data, quantity })}>
+                    Adicionar
+                </ButtonComponent>
             </Flex>
         </Flex>
     )

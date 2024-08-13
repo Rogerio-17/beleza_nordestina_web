@@ -5,6 +5,8 @@ import { Center } from '@/components/Center'
 import { CardProduct } from '@/components/CardProduct'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '@/connection/firebase'
+import { Header } from '@/components/Header'
+import { useProductsContext } from '@/context'
 
 export interface ProductProps {
     brand: string
@@ -15,6 +17,7 @@ export interface ProductProps {
     cod_product: string
     amount: number
     images: string[]
+    quantity?: number
 }
 
 export default async function Home() {
@@ -41,16 +44,19 @@ export default async function Home() {
         })
 
     return (
-        <Flex flexDirection="column">
-            <HeroSection />
-            <Center mt="1rem" gap="1.5rem" flexDirection="column">
-                <Filters />
-                <Flex gap="0.8rem" flexWrap="wrap" justifyContent="center">
-                    {data.map((item) => (
-                        <CardProduct key={item.id} data={item} />
-                    ))}
-                </Flex>
-            </Center>
-        </Flex>
+        <>
+            <Header />
+            <Flex flexDirection="column">
+                <HeroSection />
+                <Center mt="1rem" gap="1.5rem" flexDirection="column">
+                    <Filters />
+                    <Flex gap="0.8rem" flexWrap="wrap" justifyContent="center">
+                        {data.map((item) => (
+                            <CardProduct key={item.id} data={item} />
+                        ))}
+                    </Flex>
+                </Center>
+            </Flex>
+        </>
     )
 }

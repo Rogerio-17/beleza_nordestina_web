@@ -1,47 +1,64 @@
 'use client'
 import { ProductProps } from '@/app/home'
-import { db } from '@/connection/firebase'
-import { collection, getDocs } from 'firebase/firestore'
-import { createContext, useCallback, useContext } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 interface ProductContextType {
-    products: ProductProps[]
+    arrayProduct: ProductProps[]
+    handleSaveInLocalStorage: (data: ProductProps) => void
+    handleDeleteProduct: (id: string) => void
 }
 
 const ProductsContext = createContext<ProductContextType>({} as ProductContextType)
 
 export const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
-    const products: ProductProps[] = []
+    const [arrayProduct, setArrayProduct] = useState<ProductProps[]>([])
 
-    useCallback(async () => {
-        const productRef = collection(db, 'products')
-        await getDocs(productRef)
-            .then((product) => {
-                console.log(product)
-                product.forEach((prod) => {
-                    products.push({
-                        brand: prod.data().brand,
-                        title: prod.data().title,
-                        category: prod.data().category,
-                        description: prod.data().description,
-                        id: prod.data().id,
-                        cod_product: prod.data().cod_product,
-                        amount: prod.data().amount,
-                        images: prod.data().images,
-                    })
-                })
-            })
-            .catch(() => {
-                alert('Erro ao buscar dados!')
-            })
+    useEffect(() => {
+        const arrayString = localStorage.getItem('productSelected')
+        const arrayProduct = arrayString ? JSON.parse(arrayString) : []
+        setArrayProduct(arrayProduct)
     }, [])
-
     /*-------------------------------------------------------------------------------------*/
+
+    function handleSaveInLocalStorage(data: ProductProps) {
+        // Recuperar o array existente do localStorage, ou inicializar um array vazio se não existir
+        const arrayString = localStorage.getItem('productSelected')
+        let arrayDeObjetos = arrayString ? JSON.parse(arrayString) : []
+
+        // Verificar se o produto com o mesmo id já existe no array
+        const index = arrayDeObjetos.findIndex((obj: any) => obj.id === data.id)
+
+        if (index !== -1) {
+            // Se o produto já existe, atualizar a quantidade
+            arrayDeObjetos[index].quantity = data.quantity
+        } else {
+            // Se o produto não existe, adicionar ao array
+            arrayDeObjetos.push(data)
+        }
+
+        // Converter o array atualizado de volta para uma string JSON
+        const arrayAtualizadoString = JSON.stringify(arrayDeObjetos)
+
+        // Salvar o array atualizado no localStorage
+        setArrayProduct(arrayDeObjetos)
+        localStorage.setItem('productSelected', arrayAtualizadoString)
+
+        //alert('Produto adicionado à sacola.')
+    }
+
+    function handleDeleteProduct(id: string) {
+        const newArray = arrayProduct.filter((product) => product.id !== id)
+        const arrayAtualizadoString = JSON.stringify(newArray)
+        setArrayProduct(newArray)
+        localStorage.setItem('productSelected', arrayAtualizadoString)
+    }
 
     return (
         <ProductsContext.Provider
             value={{
-                products,
+                arrayProduct,
+                handleSaveInLocalStorage,
+                handleDeleteProduct,
             }}
         >
             {children}

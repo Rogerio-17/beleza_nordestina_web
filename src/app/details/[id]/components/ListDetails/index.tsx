@@ -6,48 +6,23 @@ import { ButtonComponent } from '@/components/ButtonComponent'
 import { PaymentMethods } from '@/components/PaymentMethods'
 import { ProductProps } from '@/app/home'
 import { useState } from 'react'
+import { useProductsContext } from '@/context'
 
 interface ListDetailsProps {
     productDetail: ProductProps
 }
 
 export function ListDetails({ productDetail }: ListDetailsProps) {
+    const { handleSaveInLocalStorage } = useProductsContext()
     const [quantity, setQuantity] = useState(1)
 
     function handleQuantity(quantity: number) {
         setQuantity(quantity)
     }
 
-    function handleSaveInLocalStorage() {
-        const product = {
-            data: productDetail,
-            quantity,
-        }
-
-        // Recuperar o array existente do localStorage, ou inicializar um array vazio se não existir
-        const arrayString = localStorage.getItem('productSelected')
-        let arrayDeObjetos = arrayString ? JSON.parse(arrayString) : []
-
-        // Verificar se o produto com o mesmo id já existe no array
-        const index = arrayDeObjetos.findIndex(
-            (obj: any) => obj.productDetail.id === productDetail.id
-        )
-
-        if (index !== -1) {
-            // Se o produto já existe, atualizar a quantidade
-            arrayDeObjetos[index].quantity += quantity
-        } else {
-            // Se o produto não existe, adicionar ao array
-            arrayDeObjetos.push(product)
-        }
-
-        // Converter o array atualizado de volta para uma string JSON
-        const arrayAtualizadoString = JSON.stringify(arrayDeObjetos)
-
-        // Salvar o array atualizado no localStorage
-        localStorage.setItem('productSelected', arrayAtualizadoString)
-
-        alert('Produto adicionado à sacola.')
+    const addProduct = {
+        ...productDetail,
+        quantity,
     }
 
     return (
@@ -82,7 +57,9 @@ export function ListDetails({ productDetail }: ListDetailsProps) {
                 w="100%"
             >
                 <CountComponent handleQuantity={handleQuantity} />
-                <ButtonComponent onClick={handleSaveInLocalStorage}>Adicionar</ButtonComponent>
+                <ButtonComponent onClick={() => handleSaveInLocalStorage(addProduct)}>
+                    Adicionar
+                </ButtonComponent>
             </Flex>
         </Flex>
     )

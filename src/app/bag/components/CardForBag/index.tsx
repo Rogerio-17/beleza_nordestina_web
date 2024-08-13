@@ -3,15 +3,28 @@ import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { CountComponent } from '@/components/CountComponent'
 import { BinIcon } from '@/Icons/BinIcon'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ProductProps } from '@/app/home'
+import { useProductsContext } from '@/context'
 
 export function CardForBag({ product, quantity: q }: { product: ProductProps; quantity: number }) {
+    const { handleSaveInLocalStorage, handleDeleteProduct } = useProductsContext()
     const [quantity, setQuantity] = useState(q)
 
     function handleQuantity(quantity: number) {
         setQuantity(quantity)
     }
+
+    useEffect(() => {
+        if (quantity !== q) {
+            const newQuantity = {
+                ...product,
+                quantity: quantity,
+            }
+
+            handleSaveInLocalStorage(newQuantity)
+        }
+    }, [quantity])
 
     return (
         <Flex
@@ -56,7 +69,12 @@ export function CardForBag({ product, quantity: q }: { product: ProductProps; qu
                 </Flex>
 
                 <Flex alignItems="center">
-                    <Button bg="gray.100" _hover={{ opacity: 0.85 }} _active="none">
+                    <Button
+                        bg="gray.100"
+                        _hover={{ opacity: 0.85 }}
+                        _active="none"
+                        onClick={() => handleDeleteProduct(product.id)}
+                    >
                         <BinIcon w="22px" h="22px" />
                     </Button>
                 </Flex>
