@@ -29,13 +29,19 @@ export function CardProduct({ data }: CardProductProps) {
             borderRadius="10px"
             overflow="hidden"
             h="27rem"
-            p="8px"
+            p="6px"
             alignSelf="flex-start"
             bg="#fff"
             mb="1rem"
+            position="relative"
         >
             <Flex as={NextLink} href={`/details/${data?.id}`} w="100%" cursor="pointer">
-                <Image src={!!data?.images && data.images[0]} h="250px" w="100%" />
+                <Image
+                    src={!!data?.images && data.images[0]}
+                    h="250px"
+                    w="100%"
+                    borderRadius="10px"
+                />
             </Flex>
 
             <Flex
@@ -55,7 +61,7 @@ export function CardProduct({ data }: CardProductProps) {
                 </Text>
             </Flex>
 
-            <Flex h="12%" gap="8px" alignItems="flex-end">
+            <Flex gap="8px" w="95%" alignItems="flex-end" position="absolute" bottom="14px">
                 <CountComponent handleQuantity={handleQuantity} />
                 <ButtonComponent onClick={() => handleSaveInLocalStorage({ ...data, quantity })}>
                     Adicionar

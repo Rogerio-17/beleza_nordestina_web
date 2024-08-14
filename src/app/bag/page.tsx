@@ -54,16 +54,7 @@ export default function Bag() {
                     </Text>
                 )}
                 <Flex mt="1rem" flexDirection="column" justifyContent="right" gap="0.5rem">
-                    <Text
-                        display="flex"
-                        alignItems="center"
-                        as="span"
-                        fontSize="1rem"
-                        color="gray.600"
-                        textAlign="center"
-                        justifyContent="center"
-                        gap="0.3rem"
-                    >
+                    <Text display="flex" as="span" fontSize="1rem" color="gray.600" gap="0.3rem">
                         <InformationIcon w="20px" h="20px" />
                         Ao clicar em <strong>&quot;Finalizar compra&quot;</strong> você será
                         redirecionado para nosso whatsapp com todos os dados dos produtos que estão

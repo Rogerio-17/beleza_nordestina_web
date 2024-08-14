@@ -3,7 +3,7 @@ import banner from '@/assets/banner/banner.jpg'
 
 export default function HeroSection() {
     return (
-        <Flex as="section" mt="1px">
+        <Flex as="section">
             <Image src={banner.src} width="100vw" height="420px" />
         </Flex>
     )
