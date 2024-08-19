@@ -1,11 +1,6 @@
-'use client'
 import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
-import { CountComponent } from '@/components/CountComponent'
 import { BinIcon } from '@/Icons/BinIcon'
-import { useEffect, useState } from 'react'
-import { ProductProps } from '@/app/home'
-import { useProductsContext } from '@/context'
 import { EditIcon } from '@/Icons/EditIcon'
 
 export function CardProductEditable() {
@@ -18,19 +13,16 @@ export function CardProductEditable() {
             mt="1rem"
             pr="2rem"
             justify="space-between"
-            py="1rem"
         >
             <Flex gap="1.5rem" alignItems="center">
                 <Flex flexDirection="column" alignItems="center">
                     <Image
                         src={'https://i.imgur.com/ONH76FA.jpg'}
-                        w="150px"
-                        h="150px"
+                        w="315px"
+                        h="315px"
                         p="0.5rem "
+                        borderRadius="8px"
                     />
-                    <Text>
-                        qtd de imgs: <strong>3</strong>
-                    </Text>
                 </Flex>
                 <Flex gap="0.5rem" flexDirection="column" w="25rem">
                     <Text fontSize="1.25rem" lineHeight="1.25rem">

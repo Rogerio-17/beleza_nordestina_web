@@ -1,10 +1,13 @@
+'use client'
 import { ButtonComponent } from '@/components/ButtonComponent'
 import { Center } from '@/components/Center'
 import { Header } from '@/components/Header'
-import { Flex, FormLabel, Input, Text } from '@chakra-ui/react'
+import { Flex, FormLabel, Input, Text, useDisclosure } from '@chakra-ui/react'
 import { CardProductEditable } from './components/CardProductEditable'
+import { DrawerCreateProduct } from '@/components/DrawerCreateProduct'
 
 export default function CreateProduct() {
+    const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
             <Header />
@@ -31,9 +34,10 @@ export default function CreateProduct() {
                             Buscar
                         </ButtonComponent>
                     </Flex>
-                    <ButtonComponent w="10rem" type="submit">
+                    <ButtonComponent w="10rem" colorScheme="teal" onClick={onOpen}>
                         Novo produto +
                     </ButtonComponent>
+                    <DrawerCreateProduct isOpen={isOpen} onClose={onClose} />
                 </Flex>
 
                 <CardProductEditable />

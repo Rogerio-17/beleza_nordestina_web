@@ -52,7 +52,18 @@ export function CardProduct({ data }: CardProductProps) {
                 href={`/details/${data?.id}`}
                 cursor="pointer"
             >
-                <Text textAlign="center" fontSize="1.1rem" lineHeight="16px" fontWeight="500">
+                <Text
+                    textAlign="center"
+                    fontSize="1.1rem"
+                    lineHeight="16px"
+                    fontWeight="500"
+                    sx={{
+                        display: '-webkit-box',
+                        overflow: 'hidden',
+                        WebkitBoxOrient: 'vertical',
+                        WebkitLineClamp: 2, // número de linhas
+                    }}
+                >
                     {data?.title}
                 </Text>
 

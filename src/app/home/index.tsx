@@ -39,8 +39,8 @@ export default async function Home() {
                 })
             })
         })
-        .catch(() => {
-            alert('Erro ao buscar dados!')
+        .catch((error) => {
+            console.log(error.code)
         })
 
     return (
