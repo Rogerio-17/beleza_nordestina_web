@@ -43,13 +43,9 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
 
     const createProduct = useCallback(async ({ product }: CreateProductProps): Promise<void> => {
         try {
-            console.log(product)
-
             const response = await api.post('/products', {
                 product,
             })
-
-            console.log(response)
         } catch (err) {
             throw new Error(`Error ao cadastrar produto`)
         }
