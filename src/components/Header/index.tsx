@@ -4,12 +4,10 @@ import {
     Button,
     Divider,
     Flex,
-    Heading,
     Image,
     Link,
     Menu,
     MenuButton,
-    MenuItem,
     MenuList,
     Text,
 } from '@chakra-ui/react'
@@ -25,8 +23,8 @@ import { WhatsAppIcon } from '@/Icons/WhatsAppIcon'
 import { MessageIcon } from '@/Icons/MessageIcon'
 import NextLink from 'next/link'
 import { useEffect, useState } from 'react'
-import { ProductProps } from '@/app/home'
 import { useProductsContext } from '@/context'
+import { ProductProps } from '@/hooks/useProducts'
 
 interface ArrayProductsProps {
     data: ProductProps

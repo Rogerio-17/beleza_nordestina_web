@@ -1,13 +1,12 @@
 'use client'
 import { Flex, Image, Text } from '@chakra-ui/react'
-import image from '@/assets/rimel.jpg'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { ButtonComponent } from '../ButtonComponent'
 import { CountComponent } from '../CountComponent'
 import NextLink from 'next/link'
-import { ProductProps } from '@/app/home'
 import { useState } from 'react'
 import { useProductsContext } from '@/context'
+import { ProductProps } from '@/hooks/useProducts'
 
 interface CardProductProps {
     data: ProductProps

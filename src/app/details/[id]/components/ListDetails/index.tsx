@@ -4,9 +4,9 @@ import { FormatPrice } from '@/utils/FormatPrice'
 import { CountComponent } from '@/components/CountComponent'
 import { ButtonComponent } from '@/components/ButtonComponent'
 import { PaymentMethods } from '@/components/PaymentMethods'
-import { ProductProps } from '@/app/home'
 import { useState } from 'react'
 import { useProductsContext } from '@/context'
+import { ProductProps } from '@/hooks/useProducts'
 
 interface ListDetailsProps {
     productDetail: ProductProps

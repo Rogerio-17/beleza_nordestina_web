@@ -1,5 +1,5 @@
-import { ProductProps } from '@/app/home'
 import { CardProduct } from '@/components/CardProduct'
+import { ProductProps } from '@/hooks/useProducts'
 import { Flex, Spinner, Text } from '@chakra-ui/react'
 
 interface RelatedProductsProps {

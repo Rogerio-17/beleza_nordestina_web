@@ -4,8 +4,8 @@ import { FormatPrice } from '@/utils/FormatPrice'
 import { CountComponent } from '@/components/CountComponent'
 import { BinIcon } from '@/Icons/BinIcon'
 import { useEffect, useState } from 'react'
-import { ProductProps } from '@/app/home'
 import { useProductsContext } from '@/context'
+import { ProductProps } from '@/hooks/useProducts'
 
 export function CardForBag({ product, quantity: q }: { product: ProductProps; quantity: number }) {
     const { handleSaveInLocalStorage, handleDeleteProduct } = useProductsContext()
