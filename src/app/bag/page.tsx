@@ -6,9 +6,9 @@ import { ButtonComponent } from '@/components/ButtonComponent'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { InformationIcon } from '@/Icons/InformationIcon'
 import { useEffect, useState } from 'react'
-import { ProductProps } from '../home'
 import { Header } from '@/components/Header'
 import { useProductsContext } from '@/context'
+import { ProductProps, useProducts } from '@/hooks/useProducts'
 
 interface ArrayProductsProps {
     data: ProductProps
@@ -19,6 +19,10 @@ export default function Bag() {
     const { arrayProduct } = useProductsContext()
     const [totalItens, setTotalItens] = useState<number>(0)
     const [totalAmount, setTotalAmount] = useState<number>(0)
+
+    const { products } = useProducts()
+
+    console.log(products)
 
     useEffect(() => {
         setTotalItens(arrayProduct.reduce((total, produto) => total + produto.quantity!, 0))

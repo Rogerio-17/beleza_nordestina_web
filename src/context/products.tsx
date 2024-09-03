@@ -1,5 +1,5 @@
 'use client'
-import { ProductProps } from '@/app/home'
+import { ProductProps } from '@/hooks/useProducts'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 interface ProductContextType {

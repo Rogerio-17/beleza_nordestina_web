@@ -30,7 +30,7 @@ export function ListImages({ images }: ListImagesProps) {
                     />
                 ))}
             </Flex>
-            <Flex w="90%" h="100%" bg="red">
+            <Flex w="90%" h="100%">
                 <Image src={imageSelected} w="100%" h="100%" />
             </Flex>
         </Flex>

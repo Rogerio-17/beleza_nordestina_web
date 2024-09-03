@@ -1,3 +1,4 @@
+'use client'
 import {
     Button,
     Drawer,
@@ -14,95 +15,176 @@ import {
 } from '@chakra-ui/react'
 import { Input } from '../InputComponent'
 import { ButtonComponent } from '../ButtonComponent'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { ProductProps, useProducts } from '@/hooks/useProducts'
+import { v4 as uuidv4 } from 'uuid'
 
 interface DrawerCreateProductProps {
     isOpen: boolean
     onClose: () => void
 }
-
 const categorys = ['Rosto', 'Lábios', 'Olhos', 'Skin Care']
 
+export const productSchema = z.object({
+    brand: z.string(),
+    title: z.string(),
+    category: z.string(),
+    description: z.string(),
+    cod_product: z.string(),
+    amount: z.coerce.number(),
+    image1: z.string(),
+    image2: z.string(),
+    image3: z.string(),
+})
+
+export type ProductFormData = z.infer<typeof productSchema>
+
 export function DrawerCreateProduct({ isOpen, onClose }: DrawerCreateProductProps) {
+    const { createProduct } = useProducts()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<ProductFormData>({
+        resolver: zodResolver(productSchema),
+    })
+
+    async function handleCreateProduct(data: ProductFormData) {
+        const product: ProductProps = {
+            id: uuidv4(),
+            title: data.title,
+            description: data.description,
+            brand: data.brand,
+            category: data.category,
+            amount: data.amount,
+            cod_product: data.cod_product,
+            images: [data.image1, data.image2, data.image3],
+        }
+
+        await createProduct({ product })
+    }
+
     return (
         <Drawer isOpen={isOpen} size="md" placement="right" onClose={onClose}>
             <DrawerOverlay />
             <DrawerContent>
-                <DrawerCloseButton />
-                <DrawerHeader>Criar produto</DrawerHeader>
+                <Flex
+                    flexDirection="column"
+                    as="form"
+                    onSubmit={handleSubmit(handleCreateProduct)}
+                    h="100vh"
+                >
+                    <DrawerCloseButton />
+                    <DrawerHeader>Criar produto</DrawerHeader>
 
-                <DrawerBody>
-                    <Flex as="form" flexDirection="column">
-                        <Flex gap="0.5rem">
-                            <Input name="brand" label="Marca do produto:" placeholder="Avon" />
-                            <Input name="brand" label="Codigo do produto:" placeholder="P321" />
-                        </Flex>
-                        <Flex flexDirection="column" my="0.5rem">
-                            <FormLabel fontSize="0.875rem" fontWeight="400" lineHeight="normal">
-                                Descrição do produto:
-                            </FormLabel>
-                            <Textarea
-                                resize="none"
-                                w="100%"
-                                h="48px"
-                                placeholder="Descreva o produto..."
+                    <DrawerBody>
+                        <Flex as="form" flexDirection="column">
+                            <Input
+                                mb="0.5rem"
+                                label="Título do produto:"
+                                placeholder="Rimel para melhor ajuste dos cílios"
+                                {...register('title')}
+                                error={errors.title?.message}
                             />
-                        </Flex>
-                        <Flex gap="0.5rem">
-                            <Input name="amount" label="Preço do produto:" placeholder="20" />
-                            <Flex flexDirection="column" w="100%">
+                            <Flex gap="0.5rem">
+                                <Input
+                                    label="Marca do produto:"
+                                    placeholder="Avon"
+                                    {...register('brand')}
+                                    error={errors.brand?.message}
+                                />
+                                <Input
+                                    label="Codigo do produto:"
+                                    placeholder="P321"
+                                    {...register('cod_product')}
+                                    error={errors.cod_product?.message}
+                                />
+                            </Flex>
+                            <Flex flexDirection="column" my="0.5rem">
                                 <FormLabel fontSize="0.875rem" fontWeight="400" lineHeight="normal">
-                                    Categoria do produto:
+                                    Descrição do produto:
                                 </FormLabel>
-                                <Select
-                                    size="lg"
-                                    fontWeight="500"
-                                    fontSize="1rem"
-                                    lineHeight="1.5rem"
-                                    color="gray.700"
-                                    borderWidth="1px"
-                                    borderColor="gray.200"
-                                    borderRadius="0.75rem"
-                                >
-                                    <option value="">Selecione uma categoria</option>
-                                    {categorys.map((item) => (
-                                        <>
-                                            <option key={item} value={item}>
-                                                {item}
-                                            </option>
-                                        </>
-                                    ))}
-                                </Select>
+                                <Textarea
+                                    resize="none"
+                                    w="100%"
+                                    h="48px"
+                                    placeholder="Descreva o produto..."
+                                    {...register('description')}
+                                />
+                            </Flex>
+                            <Flex gap="0.5rem">
+                                <Input
+                                    type="number"
+                                    label="Preço do produto:"
+                                    placeholder="20"
+                                    {...register('amount')}
+                                    error={errors.amount?.message}
+                                />
+                                <Flex flexDirection="column" w="100%">
+                                    <FormLabel
+                                        fontSize="0.875rem"
+                                        fontWeight="400"
+                                        lineHeight="normal"
+                                    >
+                                        Categoria do produto:
+                                    </FormLabel>
+                                    <Select
+                                        size="lg"
+                                        fontWeight="500"
+                                        fontSize="1rem"
+                                        lineHeight="1.5rem"
+                                        color="gray.700"
+                                        borderWidth="1px"
+                                        borderColor="gray.200"
+                                        borderRadius="0.75rem"
+                                        {...register('category')}
+                                    >
+                                        <option value="">Selecione uma categoria</option>
+                                        {categorys.map((item) => (
+                                            <>
+                                                <option key={item} value={item}>
+                                                    {item}
+                                                </option>
+                                            </>
+                                        ))}
+                                    </Select>
+                                </Flex>
+                            </Flex>
+
+                            <Flex gap="0.5rem" flexDirection="column" mt="0.5rem">
+                                <Input
+                                    label="Link da imagem do produto (Principal):"
+                                    placeholder="Link aqui"
+                                    {...register('image1')}
+                                    error={errors.image1?.message}
+                                />
+                                <Input
+                                    label="Link da imagem do produto:"
+                                    placeholder="Link aqui"
+                                    {...register('image2')}
+                                    error={errors.image2?.message}
+                                />
+                                <Input
+                                    label="Link da imagem do produto:"
+                                    placeholder="Link aqui"
+                                    {...register('image3')}
+                                    error={errors.image3?.message}
+                                />
                             </Flex>
                         </Flex>
+                    </DrawerBody>
 
-                        <Flex gap="0.5rem" flexDirection="column" mt="0.5rem">
-                            <Input
-                                name="imageUrl"
-                                label="Link da imagem do produto (Principal):"
-                                placeholder="Link aqui"
-                            />
-                            <Input
-                                name="imageUrl"
-                                label="Link da imagem do produto:"
-                                placeholder="Link aqui"
-                            />
-                            <Input
-                                name="imageUrl"
-                                label="Link da imagem do produto:"
-                                placeholder="Link aqui"
-                            />
-                        </Flex>
-                    </Flex>
-                </DrawerBody>
-
-                <DrawerFooter>
-                    <Button variant="outline" mr={3} onClick={onClose}>
-                        Cancelar
-                    </Button>
-                    <ButtonComponent w="6rem" bg="green">
-                        Salvar
-                    </ButtonComponent>
-                </DrawerFooter>
+                    <DrawerFooter>
+                        <Button variant="outline" mr={3} onClick={onClose}>
+                            Cancelar
+                        </Button>
+                        <ButtonComponent w="6rem" bg="green" type="submit">
+                            Salvar
+                        </ButtonComponent>
+                    </DrawerFooter>
+                </Flex>
             </DrawerContent>
         </Drawer>
     )

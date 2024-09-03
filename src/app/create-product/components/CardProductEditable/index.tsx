@@ -2,8 +2,13 @@ import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { BinIcon } from '@/Icons/BinIcon'
 import { EditIcon } from '@/Icons/EditIcon'
+import { ProductProps } from '@/hooks/useProducts'
 
-export function CardProductEditable() {
+interface CardProductEditableProps {
+    product: ProductProps
+}
+
+export function CardProductEditable({ product }: CardProductEditableProps) {
     return (
         <Flex
             bg="#fff"
@@ -17,7 +22,7 @@ export function CardProductEditable() {
             <Flex gap="1.5rem" alignItems="center">
                 <Flex flexDirection="column" alignItems="center">
                     <Image
-                        src={'https://i.imgur.com/ONH76FA.jpg'}
+                        src={product.images[0]}
                         w="315px"
                         h="315px"
                         p="0.5rem "
@@ -28,19 +33,14 @@ export function CardProductEditable() {
                     <Text fontSize="1.25rem" lineHeight="1.25rem">
                         {'Safira'} - {'Rìmel Máscara de Cílios Volume Intenso'}
                     </Text>
-                    <Text fontSize="0.875rem">Cód: ({'T321'})</Text>
-                    <Text>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum repellendus
-                        ipsa placeat alias voluptatibus tempora doloribus necessitatibus vel sunt
-                        provident impedit labore, ut dolores nemo totam maiores odio architecto
-                        recusandae.
-                    </Text>
+                    <Text fontSize="0.875rem">Cód: ({product.cod_product})</Text>
+                    <Text>{product.description}</Text>
                     <Flex flexDirection="column" gap="0.5rem">
                         <Text fontWeight="bold" fontSize="1rem">
                             Valor do produto
                         </Text>
                         <Text fontSize="1.5rem" color="green" fontWeight="bold" lineHeight="1.5rem">
-                            {FormatPrice(8.5)}
+                            {FormatPrice(product.amount)}
                         </Text>
                     </Flex>
                 </Flex>

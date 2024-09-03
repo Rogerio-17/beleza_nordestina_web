@@ -1,38 +1,70 @@
 'use client'
-import { ProductProps } from '@/app/home'
-import { db } from '@/connection/firebase'
-import { collection, getDocs } from 'firebase/firestore'
-import { useCallback, useState } from 'react'
+import { api } from '@/services/api'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-export function useProducts() {
+export interface ProductProps {
+    brand: string
+    title: string
+    category: string
+    description: string
+    id: string
+    cod_product: string
+    amount: number
+    images: string[]
+    quantity?: number
+}
+
+interface ProductsContextType {
+    products: ProductProps[]
+    createProduct: ({ product }: CreateProductProps) => void
+}
+
+interface CreateProductProps {
+    product: ProductProps
+}
+
+const ProductsContext = createContext<ProductsContextType>({} as ProductsContextType)
+
+export const ProductsApiProvider = ({ children }: { children: React.ReactNode }) => {
     const [products, setProducts] = useState<ProductProps[]>([])
 
-    const listProducts = async () => {
-        const productRef = collection(db, 'products')
-        await getDocs(productRef)
-            .then((product) => {
-                console.log(product)
-                product.forEach((prod) => {
-                    const test = {
-                        brand: prod.data().brand,
-                        title: prod.data().title,
-                        category: prod.data().category,
-                        description: prod.data().description,
-                        id: prod.data().id,
-                        cod_product: prod.data().cod_product,
-                        amount: prod.data().amount,
-                        images: prod.data().images,
-                    }
-                    setProducts([test])
-                })
-            })
-            .catch(() => {
-                alert('Erro ao buscar dados!')
-            })
-    }
+    const listProducts = useCallback(async (): Promise<void> => {
+        try {
+            const response = await api.get('/products')
+            setProducts(response.data.products)
+        } catch (err) {
+            throw new Error(`Error ao buscar produtos.`)
+        }
+    }, [])
 
-    return {
-        products,
-        listProducts,
-    }
+    useEffect(() => {
+        listProducts()
+    }, [])
+
+    const createProduct = useCallback(async ({ product }: CreateProductProps): Promise<void> => {
+        try {
+            console.log(product)
+
+            const response = await api.post('/products', {
+                product,
+            })
+
+            console.log(response)
+        } catch (err) {
+            throw new Error(`Error ao cadastrar produto`)
+        }
+    }, [])
+
+    return (
+        <ProductsContext.Provider
+            value={{
+                products,
+                createProduct,
+            }}
+        >
+            {children}
+        </ProductsContext.Provider>
+    )
 }
+
+export const useProducts = () => useContext(ProductsContext)
