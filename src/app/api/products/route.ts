@@ -1,4 +1,5 @@
 import { db } from '@/connection/firebase'
+import { CreateDataProductProps } from '@/hooks/useProducts'
 import { addDoc, collection, getDocs } from 'firebase/firestore'
 
 export interface ProductProps {
@@ -25,7 +26,7 @@ export async function GET() {
                     title: prod.data().title,
                     category: prod.data().category,
                     description: prod.data().description,
-                    id: prod.data().id,
+                    id: prod.id,
                     cod_product: prod.data().cod_product,
                     amount: prod.data().amount,
                     images: prod.data().images,
@@ -43,7 +44,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     const data = await request.json()
-    const body: ProductProps = data.product
+    const body: CreateDataProductProps = data.product
 
     //adicionar a validação dos dados recebidos
 
@@ -53,7 +54,6 @@ export async function POST(request: Request) {
         title: body.title,
         category: body.category,
         description: body.description,
-        id: body.id,
         cod_product: body.cod_product,
         amount: body.amount,
         images: body.images,

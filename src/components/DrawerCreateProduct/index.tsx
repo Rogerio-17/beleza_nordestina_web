@@ -18,8 +18,7 @@ import { ButtonComponent } from '../ButtonComponent'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { ProductProps, useProducts } from '@/hooks/useProducts'
-import { v4 as uuidv4 } from 'uuid'
+import { useProducts } from '@/hooks/useProducts'
 
 interface DrawerCreateProductProps {
     isOpen: boolean
@@ -52,8 +51,7 @@ export function DrawerCreateProduct({ isOpen, onClose }: DrawerCreateProductProp
     })
 
     async function handleCreateProduct(data: ProductFormData) {
-        const product: ProductProps = {
-            id: uuidv4(),
+        const product = {
             title: data.title,
             description: data.description,
             brand: data.brand,

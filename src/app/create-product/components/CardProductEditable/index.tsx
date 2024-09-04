@@ -2,13 +2,19 @@ import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { BinIcon } from '@/Icons/BinIcon'
 import { EditIcon } from '@/Icons/EditIcon'
-import { ProductProps } from '@/hooks/useProducts'
+import { ProductProps, useProducts } from '@/hooks/useProducts'
 
 interface CardProductEditableProps {
     product: ProductProps
 }
 
 export function CardProductEditable({ product }: CardProductEditableProps) {
+    const { deleteProduct } = useProducts()
+
+    function handleDeleteProduct() {
+        deleteProduct({ id: product.id })
+    }
+
     return (
         <Flex
             bg="#fff"
@@ -51,18 +57,18 @@ export function CardProductEditable({ product }: CardProductEditableProps) {
                     bg="transparent"
                     _hover={{ opacity: 0.85 }}
                     _active="none"
-                    onClick={() => {}}
+                    onClick={() => handleDeleteProduct()}
                 >
                     <BinIcon w="26px" h="26px" />
                 </Button>
-                <Button
+                {/* <Button
                     bg="transparent"
                     _hover={{ opacity: 0.85 }}
                     _active="none"
                     onClick={() => {}}
                 >
                     <EditIcon w="26px" h="26px" />
-                </Button>
+                </Button> */}
             </Flex>
         </Flex>
     )

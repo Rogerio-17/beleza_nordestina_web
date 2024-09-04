@@ -14,18 +14,35 @@ export interface ProductProps {
     quantity?: number
 }
 
+export interface CreateDataProductProps {
+    brand: string
+    title: string
+    category: string
+    description: string
+    cod_product: string
+    amount: number
+    images: string[]
+    quantity?: number
+}
+
+interface DeleteProductDataProps {
+    id: string
+}
+
 interface ProductsContextType {
     products: ProductProps[]
     createProduct: ({ product }: CreateProductProps) => void
+    deleteProduct: ({ id }: DeleteProductDataProps) => void
 }
 
 interface CreateProductProps {
-    product: ProductProps
+    product: CreateDataProductProps
 }
 
 const ProductsContext = createContext<ProductsContextType>({} as ProductsContextType)
 
 export const ProductsApiProvider = ({ children }: { children: React.ReactNode }) => {
+    const [update, setUpdate] = useState(true)
     const [products, setProducts] = useState<ProductProps[]>([])
 
     const listProducts = useCallback(async (): Promise<void> => {
@@ -38,14 +55,28 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
     }, [])
 
     useEffect(() => {
-        listProducts()
-    }, [])
+        if (update) {
+            listProducts()
+        }
+        setUpdate(false)
+    }, [update])
 
     const createProduct = useCallback(async ({ product }: CreateProductProps): Promise<void> => {
         try {
             const response = await api.post('/products', {
                 product,
             })
+            setUpdate(true)
+        } catch (err) {
+            throw new Error(`Error ao cadastrar produto`)
+        }
+    }, [])
+
+    const deleteProduct = useCallback(async ({ id }: DeleteProductDataProps): Promise<void> => {
+        try {
+            await api.delete(`/products/${id}`)
+            setUpdate(true)
+            alert('item deletado com sucesso')
         } catch (err) {
             throw new Error(`Error ao cadastrar produto`)
         }
@@ -56,6 +87,7 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
             value={{
                 products,
                 createProduct,
+                deleteProduct,
             }}
         >
             {children}
