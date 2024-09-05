@@ -1,7 +1,6 @@
 import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { BinIcon } from '@/Icons/BinIcon'
-import { EditIcon } from '@/Icons/EditIcon'
 import { ProductProps, useProducts } from '@/hooks/useProducts'
 
 interface CardProductEditableProps {
@@ -37,7 +36,7 @@ export function CardProductEditable({ product }: CardProductEditableProps) {
                 </Flex>
                 <Flex gap="0.5rem" flexDirection="column" w="25rem">
                     <Text fontSize="1.25rem" lineHeight="1.25rem">
-                        {'Safira'} - {'Rìmel Máscara de Cílios Volume Intenso'}
+                        {product.brand} - {product.title}
                     </Text>
                     <Text fontSize="0.875rem">Cód: ({product.cod_product})</Text>
                     <Text>{product.description}</Text>

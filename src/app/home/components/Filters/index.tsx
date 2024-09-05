@@ -2,8 +2,13 @@
 import { Flex } from '@chakra-ui/react'
 import { useState } from 'react'
 import { ButtonFilter } from './components/Button'
+import { FiltersBySelection } from '../..'
 
-export function Filters() {
+interface FiltersProps {
+    handleFilter: (data: FiltersBySelection) => void
+}
+
+export function Filters({ handleFilter }: FiltersProps) {
     const [value, setValue] = useState('todas')
 
     function handleAlterFilter(option: string) {
@@ -12,20 +17,47 @@ export function Filters() {
 
     return (
         <Flex mt="0.5rem" gap="1rem" alignItems="center">
-            <ButtonFilter onClick={() => handleAlterFilter('todas')} active={value === 'todas'}>
+            <ButtonFilter
+                onClick={() => {
+                    handleFilter(FiltersBySelection.all)
+                    handleAlterFilter('todas')
+                }}
+                active={value === 'todas'}
+            >
                 Todas
             </ButtonFilter>
-            <ButtonFilter onClick={() => handleAlterFilter('rosto')} active={value === 'rosto'}>
+            <ButtonFilter
+                onClick={() => {
+                    handleFilter(FiltersBySelection.face)
+                    handleAlterFilter('rosto')
+                }}
+                active={value === 'rosto'}
+            >
                 Rosto
             </ButtonFilter>
-            <ButtonFilter onClick={() => handleAlterFilter('labios')} active={value === 'labios'}>
+            <ButtonFilter
+                onClick={() => {
+                    handleFilter(FiltersBySelection.lips)
+                    handleAlterFilter('labios')
+                }}
+                active={value === 'labios'}
+            >
                 Lábios{' '}
             </ButtonFilter>
-            <ButtonFilter onClick={() => handleAlterFilter('olhos')} active={value === 'olhos'}>
+            <ButtonFilter
+                onClick={() => {
+                    handleFilter(FiltersBySelection.eyes)
+                    handleAlterFilter('olhos')
+                }}
+                active={value === 'olhos'}
+            >
                 Olhos
             </ButtonFilter>
             <ButtonFilter
-                onClick={() => handleAlterFilter('skincare')}
+                onClick={() => {
+                    handleFilter(FiltersBySelection.skincare)
+                    handleAlterFilter('skincare')
+                }}
                 active={value === 'skincare'}
             >
                 Skin Care

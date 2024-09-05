@@ -24,7 +24,25 @@ interface DrawerCreateProductProps {
     isOpen: boolean
     onClose: () => void
 }
-const categorys = ['Rosto', 'Lábios', 'Olhos', 'Skin Care']
+
+const categorys = [
+    {
+        name: 'Rosto',
+        valeu: 'face',
+    },
+    {
+        name: 'Lábios',
+        valeu: 'lips',
+    },
+    {
+        name: 'Olhos',
+        valeu: 'eyes',
+    },
+    {
+        name: 'Skin Care',
+        valeu: 'skincare',
+    },
+]
 
 export const productSchema = z.object({
     brand: z.string(),
@@ -142,8 +160,8 @@ export function DrawerCreateProduct({ isOpen, onClose }: DrawerCreateProductProp
                                         <option value="">Selecione uma categoria</option>
                                         {categorys.map((item) => (
                                             <>
-                                                <option key={item} value={item}>
-                                                    {item}
+                                                <option key={item.valeu} value={item.valeu}>
+                                                    {item.name}
                                                 </option>
                                             </>
                                         ))}

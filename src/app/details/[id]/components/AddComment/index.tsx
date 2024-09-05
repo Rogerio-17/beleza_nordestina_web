@@ -23,7 +23,8 @@ export function AddComments({ idProduct }: AddCommentProps) {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
+        setValue,
     } = useForm<CommentFormData>({
         resolver: zodResolver(commentSchema),
     })
@@ -36,6 +37,9 @@ export function AddComments({ idProduct }: AddCommentProps) {
         }
 
         await createComment({ comment: commentData })
+
+        setValue('comment', '')
+        setValue('userName', '')
     }
 
     return (
@@ -74,7 +78,7 @@ export function AddComments({ idProduct }: AddCommentProps) {
                 </FormControl>
 
                 <Flex w="100%" justifyContent="right">
-                    <ButtonComponent w="10rem" type="submit">
+                    <ButtonComponent w="10rem" type="submit" isLoading={isSubmitting}>
                         Comentar
                     </ButtonComponent>
                 </Flex>

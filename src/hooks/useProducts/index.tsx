@@ -33,6 +33,7 @@ interface ProductsContextType {
     products: ProductProps[]
     createProduct: ({ product }: CreateProductProps) => void
     deleteProduct: ({ id }: DeleteProductDataProps) => void
+    searchProduct: (search: string) => void
 }
 
 interface CreateProductProps {
@@ -82,12 +83,24 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
         }
     }, [])
 
+    const searchProduct = (search: string) => {
+        if (!!search) {
+            const filtered = products.filter(
+                (item) => item.title.includes(search) || item.description.includes(search)
+            )
+            setProducts(filtered)
+        } else {
+            setUpdate(true)
+        }
+    }
+
     return (
         <ProductsContext.Provider
             value={{
                 products,
                 createProduct,
                 deleteProduct,
+                searchProduct,
             }}
         >
             {children}
