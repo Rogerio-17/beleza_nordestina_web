@@ -86,7 +86,10 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
     const searchProduct = (search: string) => {
         if (!!search) {
             const filtered = products.filter(
-                (item) => item.title.includes(search) || item.description.includes(search)
+                (item) =>
+                    item.title.toLowerCase().includes(search.toLowerCase()) ||
+                    item.description.toLowerCase().includes(search.toLowerCase()) ||
+                    item.brand.toLowerCase().includes(search.toLowerCase())
             )
             setProducts(filtered)
         } else {
