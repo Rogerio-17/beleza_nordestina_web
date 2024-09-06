@@ -31,7 +31,7 @@ export function CardProduct({ data }: CardProductProps) {
             p="6px"
             alignSelf="flex-start"
             bg="#fff"
-            mb="1rem"
+            mb={{ base: '0px', lg: '1rem' }}
             position="relative"
         >
             <Flex

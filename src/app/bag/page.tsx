@@ -79,7 +79,7 @@ export default function Bag() {
                         />
                         <Text
                             as="span"
-                            fontSize="1rem"
+                            fontSize={{ base: '0.875rem', lg: '1rem' }}
                             color="gray.600"
                             gap="0.3rem"
                             lineHeight="normal"
@@ -104,7 +104,12 @@ export default function Bag() {
                             </Text>
                         </Text>
                     </Flex>
-                    <Flex alignSelf="end" w={{ base: '100%', lg: '22rem' }} gap="0.5rem">
+                    <Flex
+                        alignSelf={{ base: 'unset', lg: 'end' }}
+                        w={{ base: '100%', lg: '22rem' }}
+                        justifyContent={{ base: 'center', lg: 'unset' }}
+                        gap="0.5rem"
+                    >
                         <ButtonComponent w="10rem">Finalizar compra</ButtonComponent>
                         <Button bg="gray.300" color="#494949">
                             Continuar comprando
