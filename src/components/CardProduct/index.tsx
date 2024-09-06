@@ -100,7 +100,7 @@ export function CardProduct({ data }: CardProductProps) {
             </Flex>
 
             <Flex gap="8px" w="95%" alignItems="flex-end" position="absolute" bottom="14px">
-                <CountComponent handleQuantity={handleQuantity} />
+                <CountComponent handleQuantity={handleQuantity} sizeComponent="md" />
                 <ButtonComponent onClick={() => handleSaveInLocalStorage({ ...data, quantity })}>
                     Adicionar
                 </ButtonComponent>

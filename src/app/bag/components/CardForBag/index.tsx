@@ -1,5 +1,5 @@
 'use client'
-import { Button, Flex, Image, Text } from '@chakra-ui/react'
+import { Button, Flex, Hide, Image, Show, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { CountComponent } from '@/components/CountComponent'
 import { BinIcon } from '@/Icons/BinIcon'
@@ -32,43 +32,113 @@ export function CardForBag({ product, quantity: q }: { product: ProductProps; qu
             w="100%"
             borderRadius="8px"
             boxShadow="0px 6px 24px -4px rgba(18, 44, 100, 0.116)"
-            mt="1rem"
+            mt={{ base: '0.5rem', lg: '1rem' }}
             pr="2rem"
             justify="space-between"
+            flexDirection={{ base: 'column', lg: 'row' }}
+            p="10px "
         >
-            <Flex gap="1.5rem" alignItems="center">
-                <Image src={product.images[0]} w="150px" h="150px" p="0.5rem " />
+            <Flex
+                gap={{ base: '1rem', lg: '1.5rem' }}
+                alignItems={{ base: 'unset', lg: 'center' }}
+                w={{ base: '100%', lg: 'unset' }}
+            >
+                <Image
+                    src={product.images[0]}
+                    h={{ base: '110px', lg: '150px' }}
+                    w={{ base: '150px', lg: '150px' }}
+                    borderRadius="10px"
+                />
                 <Flex gap="0.5rem" flexDirection="column" w="25rem">
-                    <Text fontSize="1.25rem" lineHeight="1.25rem">
+                    <Text
+                        fontSize={{ base: '1rem', lg: '1.25rem' }}
+                        lineHeight="normal"
+                        fontWeight="700"
+                    >
                         {product.brand} - {product.title}
                     </Text>
-                    <Text fontSize="0.875rem">Cód: ({product.cod_product})</Text>
+                    <Text
+                        textAlign="left"
+                        fontSize={{ base: '0.75rem', lg: '0.875rem' }}
+                        color="#818181"
+                        sx={{
+                            display: '-webkit-box',
+                            overflow: 'hidden',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 2, // número de linhas
+                        }}
+                    >
+                        {product.description}
+                    </Text>
                 </Flex>
             </Flex>
 
-            <Flex gap="3rem">
-                <Flex flexDirection="column" alignItems="center" mt="2.5rem" gap="0.5rem">
-                    <Text fontWeight="bold" fontSize="1rem">
+            <Flex
+                gap={{ base: '0px', lg: '3rem' }}
+                alignItems="center"
+                justifyContent={{ base: 'space-between', lg: 'unset' }}
+            >
+                <Flex
+                    flexDirection="column"
+                    alignItems="center"
+                    mt={{ base: '0.5rem', lg: '2.5rem' }}
+                    gap={{ base: '2px', lg: '0.5rem' }}
+                >
+                    <Text fontWeight="bold" fontSize={{ base: '0.875rem', lg: '1rem' }}>
                         Valor unitário
                     </Text>
-                    <Text fontSize="1.5rem" color="green" fontWeight="bold" lineHeight="1.5rem">
+                    <Text
+                        fontSize={{ base: '1rem', lg: '1.5rem' }}
+                        color="green"
+                        fontWeight="bold"
+                        lineHeight="normal"
+                    >
                         {FormatPrice(product.amount)}
                     </Text>
                 </Flex>
-                <Flex alignItems="center">
-                    <CountComponent handleQuantity={handleQuantity} quantity={quantity} h="3rem" />
-                </Flex>
+                <Show above="lg">
+                    <Flex alignItems="center">
+                        <CountComponent
+                            sizeComponent="md"
+                            handleQuantity={handleQuantity}
+                            quantity={quantity}
+                            h="3rem"
+                        />
+                    </Flex>
+                </Show>
 
-                <Flex flexDirection="column" alignItems="center" mt="2.5rem" gap="0.5rem">
-                    <Text fontWeight="bold" fontSize="1rem">
+                <Flex
+                    flexDirection="column"
+                    alignItems="center"
+                    mt={{ base: '0.5rem', lg: '2.5rem' }}
+                    gap={{ base: '2px', lg: '0.5rem' }}
+                >
+                    <Text fontWeight="bold" fontSize={{ base: '0.875rem', lg: '1rem' }}>
                         Valor total
                     </Text>
-                    <Text fontSize="1.5rem" color="green" fontWeight="bold" lineHeight="1.5rem">
+
+                    <Text
+                        fontSize={{ base: '1rem', lg: '1.5rem' }}
+                        color="green"
+                        fontWeight="bold"
+                        lineHeight="normal"
+                    >
                         {FormatPrice(product.amount * quantity)}
                     </Text>
                 </Flex>
 
-                <Flex alignItems="center">
+                <Hide above="lg">
+                    <Flex alignItems="center" mt={{ base: '12px', lg: 'unset' }}>
+                        <CountComponent
+                            sizeComponent="sm"
+                            handleQuantity={handleQuantity}
+                            quantity={quantity}
+                            h="2.5rem"
+                        />
+                    </Flex>
+                </Hide>
+
+                <Flex alignItems="center" mt={{ base: '12px', lg: 'unset' }}>
                     <Button
                         bg="gray.100"
                         _hover={{ opacity: 0.85 }}
