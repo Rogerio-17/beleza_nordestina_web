@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { Header } from '@/components/Header'
 import { useProductsContext } from '@/context'
 import { ProductProps, useProducts } from '@/hooks/useProducts'
+import { useRouter } from 'next/navigation'
 
 interface ArrayProductsProps {
     data: ProductProps
@@ -19,6 +20,7 @@ export default function Bag() {
     const { arrayProduct } = useProductsContext()
     const [totalItens, setTotalItens] = useState<number>(0)
     const [totalAmount, setTotalAmount] = useState<number>(0)
+    const route = useRouter()
 
     useEffect(() => {
         setTotalItens(arrayProduct.reduce((total, produto) => total + produto.quantity!, 0))
@@ -111,7 +113,7 @@ export default function Bag() {
                         gap="0.5rem"
                     >
                         <ButtonComponent w="10rem">Finalizar compra</ButtonComponent>
-                        <Button bg="gray.300" color="#494949">
+                        <Button bg="gray.300" color="#494949" onClick={() => route.push('/')}>
                             Continuar comprando
                         </Button>
                     </Flex>

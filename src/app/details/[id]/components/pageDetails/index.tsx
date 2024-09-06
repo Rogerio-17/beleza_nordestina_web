@@ -80,8 +80,9 @@ export function PageDetails({ params }: DetailsProps) {
                     <Link
                         margin="auto"
                         color="green"
-                        w={showAllComents ? '9rem' : '11.3rem'}
+                        w={showAllComents ? '9rem' : '11.5rem'}
                         borderBottom="1px solid green"
+                        textAlign="center"
                         onClick={() => setShowAllComents(!showAllComents)}
                     >
                         {showAllComents ? 'Ocultar comentarios' : 'Ver todos os comentarios'}
