@@ -29,7 +29,7 @@ export function ListDetails({ productDetail }: ListDetailsProps) {
         <Flex
             flexDirection="column"
             w={{ base: '100%', lg: '50%' }}
-            h={{ base: '23rem', lg: 'unset' }}
+            h={{ base: '26rem', lg: 'unset' }}
             position="relative"
         >
             <Flex as="header" flexDirection="column">
