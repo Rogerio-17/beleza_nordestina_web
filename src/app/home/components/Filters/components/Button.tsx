@@ -9,6 +9,7 @@ interface ButtonFilterProps extends ButtonProps {
 export function ButtonFilter({ children, active, ...props }: ButtonFilterProps) {
     return (
         <Button
+            fontSize={{ base: '0.875rem', lg: '1rem' }}
             bg={active ? 'green' : 'gray.100'}
             color={active ? 'white' : ''}
             p="0px 18px"

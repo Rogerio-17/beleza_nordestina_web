@@ -22,51 +22,79 @@ export function CardProduct({ data }: CardProductProps) {
 
     return (
         <Flex
-            flexDirection="column"
-            w="17rem"
+            flexDirection={{ base: 'row', lg: 'column' }}
+            w={{ base: '100%', lg: '17rem' }}
             boxShadow="0px 6px 24px -4px rgba(18, 44, 100, 0.116)"
             borderRadius="10px"
             overflow="hidden"
-            h="27rem"
+            h={{ base: '12rem', lg: '27rem' }}
             p="6px"
             alignSelf="flex-start"
             bg="#fff"
             mb="1rem"
             position="relative"
         >
-            <Flex as={NextLink} href={`/details/${data?.id}`} w="100%" cursor="pointer">
+            <Flex
+                as={NextLink}
+                href={`/details/${data?.id}`}
+                w={{ base: '160px', lg: '100%' }}
+                cursor="pointer"
+            >
                 <Image
                     src={!!data?.images && data.images[0]}
-                    h="250px"
-                    w="100%"
+                    h={{ base: '120px', lg: '250px' }}
+                    w={{ base: '120px', lg: '100%' }}
                     borderRadius="10px"
                 />
             </Flex>
 
-            <Flex
-                flexDirection="column"
-                mt="1rem"
-                gap="1rem"
-                as={NextLink}
-                href={`/details/${data?.id}`}
-                cursor="pointer"
-            >
-                <Text
-                    textAlign="center"
-                    fontSize="1.1rem"
-                    lineHeight="16px"
-                    fontWeight="500"
-                    sx={{
-                        display: '-webkit-box',
-                        overflow: 'hidden',
-                        WebkitBoxOrient: 'vertical',
-                        WebkitLineClamp: 2, // número de linhas
-                    }}
+            <Flex flexDirection="column" w={{ base: '70%', lg: 'unset' }}>
+                <Flex
+                    flexDirection="column"
+                    mt="0.4rem"
+                    gap="0.2rem"
+                    as={NextLink}
+                    href={`/details/${data?.id}`}
+                    cursor="pointer"
+                    h={{ base: '80px', lg: '75px' }}
                 >
-                    {data?.title}
-                </Text>
+                    <Text
+                        textAlign={{ base: 'left', lg: 'center' }}
+                        fontSize="1rem"
+                        lineHeight="16px"
+                        fontWeight="700"
+                        sx={{
+                            display: '-webkit-box',
+                            overflow: 'hidden',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 2, // número de linhas
+                        }}
+                    >
+                        {data?.title}
+                    </Text>
 
-                <Text textAlign="center" fontSize="2rem" fontWeight="bold" color="green">
+                    <Text
+                        textAlign="left"
+                        fontSize={{ base: '0.75rem', lg: '0.875rem' }}
+                        color="#818181"
+                        sx={{
+                            display: '-webkit-box',
+                            overflow: 'hidden',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 2, // número de linhas
+                        }}
+                    >
+                        {data.description}
+                    </Text>
+                </Flex>
+
+                <Text
+                    textAlign={{ base: 'left', lg: 'center' }}
+                    fontSize="1.5rem"
+                    fontWeight="bold"
+                    color="green"
+                    display="block"
+                >
                     {FormatPrice(data?.amount ? data.amount : 0)}
                 </Text>
             </Flex>

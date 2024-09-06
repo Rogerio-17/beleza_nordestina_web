@@ -16,7 +16,7 @@ export function Filters({ handleFilter }: FiltersProps) {
     }
 
     return (
-        <Flex mt="0.5rem" gap="1rem" alignItems="center">
+        <Flex mt="0.5rem" gap={{ base: '0.5rem', lg: '1rem' }} alignItems="center">
             <ButtonFilter
                 onClick={() => {
                     handleFilter(FiltersBySelection.all)

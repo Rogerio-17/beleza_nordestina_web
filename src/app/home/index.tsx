@@ -19,7 +19,7 @@ export enum FiltersBySelection {
 export function HomePage() {
     const [filters, setFilters] = useState<FiltersBySelection>(FiltersBySelection.all)
     const [filteredData, setFilteredData] = useState<ProductProps[]>([])
-    const { products } = useProducts()
+    const { products, productsFiltered } = useProducts()
 
     function handleFilter(data: FiltersBySelection) {
         setFilters(data)
@@ -40,7 +40,7 @@ export function HomePage() {
                 <HeroSection />
                 <Center mt="1rem" gap="1.5rem" flexDirection="column">
                     <Filters handleFilter={handleFilter} />
-                    <ListProducts products={filteredData} />
+                    <ListProducts products={!productsFiltered ? filteredData : productsFiltered} />
                 </Center>
             </Flex>
         </>

@@ -31,6 +31,7 @@ interface DeleteProductDataProps {
 
 interface ProductsContextType {
     products: ProductProps[]
+    productsFiltered: ProductProps[] | null
     createProduct: ({ product }: CreateProductProps) => void
     deleteProduct: ({ id }: DeleteProductDataProps) => void
     searchProduct: (search: string) => void
@@ -45,6 +46,7 @@ const ProductsContext = createContext<ProductsContextType>({} as ProductsContext
 export const ProductsApiProvider = ({ children }: { children: React.ReactNode }) => {
     const [update, setUpdate] = useState(true)
     const [products, setProducts] = useState<ProductProps[]>([])
+    const [productsFiltered, setProductsFiltered] = useState<ProductProps[] | null>(null)
 
     const listProducts = useCallback(async (): Promise<void> => {
         try {
@@ -91,9 +93,9 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
                     item.description.toLowerCase().includes(search.toLowerCase()) ||
                     item.brand.toLowerCase().includes(search.toLowerCase())
             )
-            setProducts(filtered)
+            setProductsFiltered(filtered)
         } else {
-            setUpdate(true)
+            setProductsFiltered(null)
         }
     }
 
@@ -101,6 +103,7 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
         <ProductsContext.Provider
             value={{
                 products,
+                productsFiltered,
                 createProduct,
                 deleteProduct,
                 searchProduct,
