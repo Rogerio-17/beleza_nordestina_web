@@ -49,7 +49,12 @@ export function Header() {
                 alignItems="center"
                 flexDirection={{ base: 'column', lg: 'row' }}
             >
-                <Flex alignItems="center" gap="1rem" w="100%" justifyContent="space-between">
+                <Flex
+                    alignItems="center"
+                    gap="1rem"
+                    w="100%"
+                    justifyContent={{ base: 'space-between', lg: 'unset' }}
+                >
                     <Link as={NextLink} href="/">
                         <Image
                             src={logo.src}
