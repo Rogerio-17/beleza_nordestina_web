@@ -1,5 +1,5 @@
 'use client'
-import { Flex, Image, Text } from '@chakra-ui/react'
+import { Flex, FlexProps, Image, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { ButtonComponent } from '../ButtonComponent'
 import { CountComponent } from '../CountComponent'
@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { useProductsContext } from '@/context'
 import { ProductProps } from '@/hooks/useProducts'
 
-interface CardProductProps {
+interface CardProductProps extends FlexProps {
     data: ProductProps
 }
 

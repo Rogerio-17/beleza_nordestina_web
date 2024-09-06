@@ -44,7 +44,13 @@ export function AddComments({ idProduct }: AddCommentProps) {
 
     return (
         <Flex as="form" flexDirection="column" onSubmit={handleSubmit(handleCreateComment)}>
-            <Text fontSize="2rem" textAlign="center" mb="1rem" fontWeight="bold">
+            <Text
+                fontSize={{ base: '1.5rem', lg: '2rem' }}
+                textAlign={{ base: 'left', lg: 'center' }}
+                lineHeight="normal"
+                mb="1rem"
+                fontWeight="bold"
+            >
                 Comentários sobre o produto
             </Text>
             <Flex flexDirection="column" gap="0.5rem">
@@ -54,7 +60,7 @@ export function AddComments({ idProduct }: AddCommentProps) {
                         placeholder="Beleza Nodestina"
                         focusBorderColor="green"
                         borderRadius="6px"
-                        w="25rem"
+                        w={{ base: '100%', lg: '25rem' }}
                         {...register('userName')}
                         error={errors.userName?.message}
                     />
@@ -68,6 +74,7 @@ export function AddComments({ idProduct }: AddCommentProps) {
                         border="1px solid #dbd7d7"
                         placeholder="Digite seu comentario..."
                         borderRadius="6px"
+                        _placeholder={{ color: 'gray.400' }}
                         _invalid={{ borderColor: 'yellow.500' }}
                         {...register('comment')}
                     />

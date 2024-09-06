@@ -26,23 +26,38 @@ export function ListDetails({ productDetail }: ListDetailsProps) {
     }
 
     return (
-        <Flex flexDirection="column" w="50%" position="relative">
+        <Flex
+            flexDirection="column"
+            w={{ base: '100%', lg: '50%' }}
+            h={{ base: '23rem', lg: 'unset' }}
+            position="relative"
+        >
             <Flex as="header" flexDirection="column">
                 <Text fontSize="1rem" color="gray.500">
                     {productDetail.brand}
                 </Text>
-                <Text fontSize="2rem" lineHeight="2rem" mb="0.3rem">
+                <Text
+                    fontSize={{ base: '1.5rem', lg: '2rem' }}
+                    fontWeight="600"
+                    lineHeight="normal"
+                    mb={{ base: '0px', lg: '0.3rem' }}
+                >
                     {productDetail.brand} - {productDetail.title}
                 </Text>
 
-                <Text fontSize="1rem" color="gray.600" mb="1rem">
+                <Text fontSize={{ base: '0.875rem', lg: '1rem' }} color="gray.600" mb="1rem">
                     {productDetail.description}
                 </Text>
                 <Text fontSize="0.875rem">Cód: ({productDetail.cod_product})</Text>
             </Flex>
             <Divider />
             <Flex mt="0.5rem" flexDirection="column">
-                <Text fontSize="2.5rem" fontWeight="bold" color="green" mb="0.5rem">
+                <Text
+                    fontSize={{ base: '2rem', lg: '2.5rem' }}
+                    fontWeight="bold"
+                    color="green"
+                    mb="0.5rem"
+                >
                     {FormatPrice(productDetail.amount)}
                 </Text>
                 <PaymentMethods />

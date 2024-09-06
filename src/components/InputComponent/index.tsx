@@ -50,7 +50,7 @@ const InputBase = forwardRef<HTMLInputElement, FlexProps>((props, ref) => {
                 ref={ref}
                 name={name}
                 size="lg"
-                fontWeight="500"
+                fontWeight="400"
                 fontSize="1rem"
                 lineHeight="1.5rem"
                 color="gray.700"

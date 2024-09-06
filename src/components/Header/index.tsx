@@ -49,7 +49,7 @@ export function Header() {
                 alignItems="center"
                 flexDirection={{ base: 'column', lg: 'row' }}
             >
-                <Flex alignItems="center" gap="1rem" w="100vw">
+                <Flex alignItems="center" gap="1rem" w="100%" justifyContent="space-between">
                     <Link as={NextLink} href="/">
                         <Image
                             src={logo.src}
@@ -62,7 +62,7 @@ export function Header() {
                         <Search w={{ base: '15rem', lg: '30rem' }} />
                     </Show>
 
-                    <Hide above="sm">
+                    <Hide above="lg">
                         <Flex gap="8px">
                             <CallMenu />
                             <Flex

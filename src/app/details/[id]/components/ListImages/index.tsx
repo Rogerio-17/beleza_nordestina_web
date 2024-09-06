@@ -14,7 +14,7 @@ export function ListImages({ images }: ListImagesProps) {
     }
 
     return (
-        <Flex w="50%" h="100%" gap="1.5rem">
+        <Flex w={{ base: '100%', lg: '50%' }} h="100%" gap={{ base: '0.875rem', lg: '1.5rem' }}>
             <Flex flexDirection="column" gap="0.5rem" width="5rem" h="5rem">
                 {images.map((foto, i) => (
                     <Image
@@ -30,8 +30,8 @@ export function ListImages({ images }: ListImagesProps) {
                     />
                 ))}
             </Flex>
-            <Flex w="90%" h="100%">
-                <Image src={imageSelected} w="100%" h="100%" />
+            <Flex w="90%" h={{ base: '350px', lg: '100%' }}>
+                <Image src={imageSelected} w="100%" h="100%" borderRadius="10px" />
             </Flex>
         </Flex>
     )
