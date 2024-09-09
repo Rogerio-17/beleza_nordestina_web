@@ -3,6 +3,8 @@ import { ReactNode } from 'react'
 
 interface ButtonComponentProps extends ButtonProps {
     children: ReactNode
+    href?: string
+    target?: string
 }
 
 export function ButtonComponent({ children, ...props }: ButtonComponentProps) {

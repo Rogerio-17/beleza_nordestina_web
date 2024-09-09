@@ -10,6 +10,8 @@ import { Header } from '@/components/Header'
 import { useProductsContext } from '@/context'
 import { ProductProps, useProducts } from '@/hooks/useProducts'
 import { useRouter } from 'next/navigation'
+import { generateMessageRequest } from '@/utils/generateMsg'
+import Link from 'next/link'
 
 interface ArrayProductsProps {
     data: ProductProps
@@ -28,6 +30,10 @@ export default function Bag() {
             arrayProduct.reduce((total, produto) => total + produto.amount * produto.quantity!, 0)
         )
     }, [arrayProduct])
+
+    const messageWhatsapp = generateMessageRequest(arrayProduct)
+    const numberWhatsapp = '5584988103345'
+    const url = `https://wa.me/${numberWhatsapp}?text=${messageWhatsapp}`
 
     return (
         <>
@@ -112,7 +118,9 @@ export default function Bag() {
                         justifyContent={{ base: 'center', lg: 'unset' }}
                         gap="0.5rem"
                     >
-                        <ButtonComponent w="10rem">Finalizar compra</ButtonComponent>
+                        <ButtonComponent as={Link} href={url} target="_blank" w="10rem">
+                            Finalizar compra
+                        </ButtonComponent>
                         <Button bg="gray.300" color="#494949" onClick={() => route.push('/')}>
                             Continuar comprando
                         </Button>
