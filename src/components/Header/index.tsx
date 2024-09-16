@@ -1,33 +1,16 @@
 'use client'
-import {
-    Box,
-    Button,
-    Divider,
-    Flex,
-    Hide,
-    Image,
-    Link,
-    Menu,
-    MenuButton,
-    MenuList,
-    Show,
-    Text,
-} from '@chakra-ui/react'
+import { Box, Flex, Hide, Image, Link, Show, Text } from '@chakra-ui/react'
 import { Center } from '../Center'
 import { Search } from '../Search'
-import { ChatIcon } from '../../Icons/ChatIcon'
 import { UserCircleIcon } from '@/Icons/UserCicle'
 import { ShoppingBagIcon } from '@/Icons/ShoppingBag'
-import logo from '@/assets/logo/logo.png'
-import { ChevronDownIcon } from '@/Icons/ChevronDownIcon'
-import { PhoneIcon } from '@/Icons/PhoneIcon'
-import { WhatsAppIcon } from '@/Icons/WhatsAppIcon'
-import { MessageIcon } from '@/Icons/MessageIcon'
 import NextLink from 'next/link'
 import { useEffect, useState } from 'react'
 import { useProductsContext } from '@/context'
 import { ProductProps } from '@/hooks/useProducts'
 import { CallMenu } from './components/callMenu'
+
+import logo from '@/assets/logo/logo.png'
 
 interface ArrayProductsProps {
     data: ProductProps

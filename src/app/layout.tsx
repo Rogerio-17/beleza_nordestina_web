@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Providers } from './providers'
 import { fonts } from '@/styles/themes/fonts'
 import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
     title: 'Beleza Nordestina',
@@ -17,7 +18,10 @@ export default function RootLayout({
     return (
         <html lang="pt-br">
             <body className={fonts.inter.variable}>
-                <Providers>{children}</Providers>
+                <Providers>
+                    {children}
+                    <Footer />
+                </Providers>
             </body>
         </html>
     )

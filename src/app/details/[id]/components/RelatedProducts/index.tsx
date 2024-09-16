@@ -38,7 +38,7 @@ export function RelatedProducts({ products }: RelatedProductsProps) {
                 Aproveite e compre também
             </Text>
 
-            <Flex gap="1rem" flexDirection={{ base: 'column', lg: 'row' }}>
+            <Flex gap="1rem" flexDirection={{ base: 'column', lg: 'row' }} justifyContent="center">
                 {products.map((product) => (
                     <CardProduct data={product} key={product.id} />
                 ))}

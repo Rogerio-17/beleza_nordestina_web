@@ -47,7 +47,7 @@ export function CountComponent({
                 fontSize="1.2rem"
                 lineHeight="0px"
                 p={sizeComponent === 'sm' ? '6px' : 'unset'}
-                bg="#a32600ac"
+                bg="#b9b9b9"
                 // Opacidade um pouco menor
                 color="#fff"
                 _hover="none"
