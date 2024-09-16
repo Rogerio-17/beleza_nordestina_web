@@ -7,6 +7,7 @@ export interface CommentsProps {
     userName: string
     comment: string
     idProduct: string
+    stars: number
     created_at: string
 }
 
@@ -14,6 +15,7 @@ export interface CreateCommentsProps {
     userName: string
     comment: string
     idProduct: string
+    stars: number
 }
 
 export interface CreateCommentProps {

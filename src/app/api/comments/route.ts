@@ -6,6 +6,7 @@ export interface CommentsProps {
     userName: string
     comment: string
     idProduct: string
+    stars: number
     created_at: string
 }
 
@@ -21,6 +22,7 @@ export async function GET() {
                     userName: comment.data().userName,
                     comment: comment.data().comment,
                     idProduct: comment.data().idProduct,
+                    stars: comment.data().stars,
                     created_at: comment.data().created_at,
                 })
             })
@@ -43,6 +45,7 @@ export async function POST(request: Request) {
         userName: body.userName,
         comment: body.comment,
         idProduct: body.idProduct,
+        stars: body.stars,
         created_at: new Date(),
     })
         .then((product) => {

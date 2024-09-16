@@ -7,6 +7,9 @@ import NextLink from 'next/link'
 import { useState } from 'react'
 import { useProductsContext } from '@/context'
 import { ProductProps } from '@/hooks/useProducts'
+import { ShowStars } from '../ShowStars'
+import { useComments } from '@/hooks/useComments'
+import { ToTalStars } from '@/utils/TotalStarsFormatter'
 
 interface CardProductProps extends FlexProps {
     data: ProductProps
@@ -14,11 +17,14 @@ interface CardProductProps extends FlexProps {
 
 export function CardProduct({ data }: CardProductProps) {
     const { handleSaveInLocalStorage } = useProductsContext()
+    const { comments } = useComments()
     const [quantity, setQuantity] = useState(1)
 
     function handleQuantity(quantity: number) {
         setQuantity(quantity)
     }
+
+    const { stars } = ToTalStars({ comments, idProduct: data.id })
 
     return (
         <Flex
@@ -27,7 +33,7 @@ export function CardProduct({ data }: CardProductProps) {
             boxShadow="0px 6px 24px -4px rgba(18, 44, 100, 0.116)"
             borderRadius="10px"
             overflow="hidden"
-            h={{ base: '12rem', lg: '27rem' }}
+            h={{ base: '12.5rem', lg: '28.5rem' }}
             p="6px"
             alignSelf="flex-start"
             bg="#fff"
@@ -42,7 +48,7 @@ export function CardProduct({ data }: CardProductProps) {
             >
                 <Image
                     src={!!data?.images && data.images[0]}
-                    h={{ base: '120px', lg: '250px' }}
+                    h={{ base: '130px', lg: '250px' }}
                     w={{ base: '120px', lg: '100%' }}
                     borderRadius="10px"
                 />
@@ -56,7 +62,7 @@ export function CardProduct({ data }: CardProductProps) {
                     as={NextLink}
                     href={`/details/${data?.id}`}
                     cursor="pointer"
-                    h={{ base: '80px', lg: '75px' }}
+                    h={{ base: '90px', lg: '95px' }}
                 >
                     <Text
                         textAlign={{ base: 'left', lg: 'center' }}
@@ -86,6 +92,8 @@ export function CardProduct({ data }: CardProductProps) {
                     >
                         {data.description}
                     </Text>
+
+                    <ShowStars stars={stars} />
                 </Flex>
 
                 <Text

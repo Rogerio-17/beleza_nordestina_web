@@ -7,6 +7,9 @@ import { PaymentMethods } from '@/components/PaymentMethods'
 import { useState } from 'react'
 import { useProductsContext } from '@/context'
 import { ProductProps } from '@/hooks/useProducts'
+import { ToTalStars } from '@/utils/TotalStarsFormatter'
+import { useComments } from '@/hooks/useComments'
+import { ShowStars } from '@/components/ShowStars'
 
 interface ListDetailsProps {
     productDetail: ProductProps
@@ -14,7 +17,9 @@ interface ListDetailsProps {
 
 export function ListDetails({ productDetail }: ListDetailsProps) {
     const { handleSaveInLocalStorage } = useProductsContext()
+    const { comments } = useComments()
     const [quantity, setQuantity] = useState(1)
+    const { stars } = ToTalStars({ comments, idProduct: productDetail.id })
 
     function handleQuantity(quantity: number) {
         setQuantity(quantity)
@@ -33,9 +38,12 @@ export function ListDetails({ productDetail }: ListDetailsProps) {
             position="relative"
         >
             <Flex as="header" flexDirection="column">
-                <Text fontSize="1rem" color="gray.500">
-                    {productDetail.brand}
-                </Text>
+                <Flex justifyContent="space-between" alignItems="center">
+                    <Text fontSize="1rem" color="gray.500">
+                        {productDetail.brand}
+                    </Text>
+                    <ShowStars stars={stars} />
+                </Flex>
                 <Text
                     fontSize={{ base: '1.5rem', lg: '2rem' }}
                     fontWeight="600"

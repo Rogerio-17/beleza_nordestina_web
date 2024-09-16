@@ -1,8 +1,10 @@
 import { ButtonComponent } from '@/components/ButtonComponent'
 import { Input } from '@/components/InputComponent'
-import { CommentsProps, CreateCommentsProps, useComments } from '@/hooks/useComments'
+import { SetStars } from '@/components/SetStars'
+import { CreateCommentsProps, useComments } from '@/hooks/useComments'
 import { Flex, FormControl, FormErrorMessage, Text, Textarea } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -18,7 +20,12 @@ interface AddCommentProps {
 }
 
 export function AddComments({ idProduct }: AddCommentProps) {
+    const [stars, setStars] = useState<number | null>(null)
     const { createComment } = useComments()
+
+    function handleSetStars(star: number) {
+        setStars(star)
+    }
 
     const {
         register,
@@ -33,6 +40,7 @@ export function AddComments({ idProduct }: AddCommentProps) {
         const commentData: CreateCommentsProps = {
             userName: data.userName,
             comment: data.comment,
+            stars: stars!,
             idProduct: idProduct,
         }
 
@@ -51,7 +59,7 @@ export function AddComments({ idProduct }: AddCommentProps) {
                 mb="1rem"
                 fontWeight="bold"
             >
-                Comentários sobre o produto
+                Avalie o produto
             </Text>
             <Flex flexDirection="column" gap="0.5rem">
                 <Flex flexDirection="column">
@@ -84,8 +92,22 @@ export function AddComments({ idProduct }: AddCommentProps) {
                     </FormErrorMessage>
                 </FormControl>
 
+                <SetStars handleSetStars={handleSetStars} stars={stars} />
+
                 <Flex w="100%" justifyContent="right">
-                    <ButtonComponent w="10rem" type="submit" isLoading={isSubmitting}>
+                    <ButtonComponent
+                        w="10rem"
+                        type="submit"
+                        isLoading={isSubmitting}
+                        isDisabled={!stars}
+                        _disabled={{
+                            opacity: 0.5,
+                            cursor: 'not-allowed',
+                        }}
+                        _active={{
+                            _active: 'none',
+                        }}
+                    >
                         Comentar
                     </ButtonComponent>
                 </Flex>
