@@ -1,4 +1,3 @@
-import { CommentsProps, useComments } from '@/hooks/useComments'
 import { StarIcon } from '@/Icons/StarIcon'
 import { Flex, FlexProps, Text } from '@chakra-ui/react'
 
@@ -11,19 +10,11 @@ export function ShowStars({ stars, isUnique, ...props }: ShowStarsProps) {
     return (
         <Flex gap="0.2rem" color="#292929" alignItems="center" {...props}>
             {!isUnique ? (
-                <Text
-                    fontWeight="500"
-                    fontSize={{ base: '0.75rem', lg: '0.875rem' }}
-                    lineHeight="normal"
-                >
+                <Text fontWeight="500" fontSize="0.85rem" lineHeight="normal">
                     Avaliações:
                 </Text>
             ) : (
-                <Text
-                    fontWeight="500"
-                    fontSize={{ base: '0.75rem', lg: '0.875rem' }}
-                    lineHeight="normal"
-                >
+                <Text fontWeight="500" fontSize="0.85rem" lineHeight="normal">
                     Avaliação:
                 </Text>
             )}
