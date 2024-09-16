@@ -1,5 +1,6 @@
 import { StarIcon } from '@/Icons/StarIcon'
 import { Flex, FlexProps, Text } from '@chakra-ui/react'
+import { useEffect } from 'react'
 
 interface SetStarsProps extends FlexProps {
     handleSetStars: (star: number) => void

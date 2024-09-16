@@ -36,6 +36,8 @@ export function AddComments({ idProduct }: AddCommentProps) {
         resolver: zodResolver(commentSchema),
     })
 
+    console.log(stars)
+
     async function handleCreateComment(data: CommentFormData) {
         const commentData: CreateCommentsProps = {
             userName: data.userName,
@@ -48,6 +50,7 @@ export function AddComments({ idProduct }: AddCommentProps) {
 
         setValue('comment', '')
         setValue('userName', '')
+        setStars(null)
     }
 
     return (

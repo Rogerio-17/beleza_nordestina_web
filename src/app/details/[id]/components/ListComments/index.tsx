@@ -25,6 +25,7 @@ export function ListComments({ comment }: ListCommentsProps) {
                     h="110px"
                     value={comment.comment}
                     resize="none"
+                    readOnly
                 />
                 <ShowStars stars={stars} isUnique />
             </Flex>
