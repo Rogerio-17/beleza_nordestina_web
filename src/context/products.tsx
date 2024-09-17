@@ -1,6 +1,7 @@
 'use client'
 import { ProductProps } from '@/hooks/useProducts'
 import { createContext, useContext, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 interface ProductContextType {
     arrayProduct: ProductProps[]
@@ -42,6 +43,7 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
         // Salvar o array atualizado no localStorage
         setArrayProduct(arrayDeObjetos)
         localStorage.setItem('productSelected', arrayAtualizadoString)
+        toast.success('Produto adicionado à sacola.')
 
         //alert('Produto adicionado à sacola.')
     }
@@ -51,6 +53,7 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
         const arrayAtualizadoString = JSON.stringify(newArray)
         setArrayProduct(newArray)
         localStorage.setItem('productSelected', arrayAtualizadoString)
+        toast.success('Produto removido com sucesso.')
     }
 
     return (

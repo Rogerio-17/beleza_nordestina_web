@@ -1,6 +1,7 @@
 'use client'
 import {
     Button,
+    Checkbox,
     Drawer,
     DrawerBody,
     DrawerCloseButton,
@@ -54,6 +55,8 @@ export const productSchema = z.object({
     image1: z.string(),
     image2: z.string(),
     image3: z.string(),
+    available: z.coerce.number(),
+    showItem: z.boolean(),
 })
 
 export type ProductFormData = z.infer<typeof productSchema>
@@ -77,6 +80,8 @@ export function DrawerCreateProduct({ isOpen, onClose }: DrawerCreateProductProp
             amount: data.amount,
             cod_product: data.cod_product,
             images: [data.image1, data.image2, data.image3],
+            available: data.available,
+            showItem: data.showItem,
         }
 
         await createProduct({ product })
@@ -187,6 +192,20 @@ export function DrawerCreateProduct({ isOpen, onClose }: DrawerCreateProductProp
                                     placeholder="Link aqui"
                                     {...register('image3')}
                                     error={errors.image3?.message}
+                                />
+                            </Flex>
+
+                            <Flex gap="0.5rem" mt="0.5rem">
+                                <Flex alignSelf="end" gap="8px">
+                                    <Checkbox {...register('showItem')} />
+                                    Exibir produto?
+                                </Flex>
+                                <Input
+                                    type="number"
+                                    label="Produtos em estoque:"
+                                    placeholder="5"
+                                    {...register('available')}
+                                    error={errors.available?.message}
                                 />
                             </Flex>
                         </Flex>

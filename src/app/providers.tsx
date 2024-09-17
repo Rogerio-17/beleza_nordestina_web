@@ -4,6 +4,8 @@ import { theme } from '@/styles/global'
 import { ProductsProvider } from '@/context'
 import { ProductsApiProvider } from '@/hooks/useProducts'
 import { CommentsProvider } from '@/hooks/useComments'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
@@ -13,6 +15,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                     <ProductsProvider>{children}</ProductsProvider>
                 </CommentsProvider>
             </ProductsApiProvider>
+            <ToastContainer />
         </ChakraProvider>
     )
 }

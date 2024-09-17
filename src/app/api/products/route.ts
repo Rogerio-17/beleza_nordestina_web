@@ -61,6 +61,8 @@ export async function POST(request: Request) {
         cod_product: body.cod_product,
         amount: body.amount,
         images: body.images,
+        available: body.available,
+        showItem: body.showItem,
     })
         .then((product) => {
             console.log('adicionado com sucesso!')

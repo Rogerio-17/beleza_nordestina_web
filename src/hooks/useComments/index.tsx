@@ -1,6 +1,7 @@
 'use client'
 import { api } from '@/services/api'
 import { useCallback, useContext, useEffect, useState, createContext } from 'react' // Corrigido: importar createContext de 'react'
+import { toast } from 'react-toastify'
 
 export interface CommentsProps {
     id: string
@@ -55,7 +56,9 @@ export const CommentsProvider = ({ children }: { children: React.ReactNode }) =>
                 comment,
             })
             setUpdate(true)
+            toast.success('Comentario realizado com sucesso')
         } catch (err) {
+            toast.error('Erro ao realizar o comentario')
             throw new Error(`Erro para realizar o comentario.`)
         }
     }, [])

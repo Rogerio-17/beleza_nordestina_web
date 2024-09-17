@@ -1,6 +1,7 @@
 'use client'
 import { api } from '@/services/api'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 export interface ProductProps {
     brand: string
@@ -25,6 +26,8 @@ export interface CreateDataProductProps {
     amount: number
     images: string[]
     quantity?: number
+    showItem: boolean
+    available: number
 }
 
 interface DeleteProductDataProps {
@@ -72,7 +75,9 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
                 product,
             })
             setUpdate(true)
+            toast.success('Produto cadastrado com sucesso')
         } catch (err) {
+            toast.error('Erro ao cadastrar produto')
             throw new Error(`Error ao cadastrar produto`)
         }
     }, [])
@@ -81,8 +86,9 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
         try {
             await api.delete(`/products/${id}`)
             setUpdate(true)
-            alert('item deletado com sucesso')
+            toast.success('Produto deletado com sucesso')
         } catch (err) {
+            toast.error('Erro ao deletar produto')
             throw new Error(`Error ao cadastrar produto`)
         }
     }, [])
