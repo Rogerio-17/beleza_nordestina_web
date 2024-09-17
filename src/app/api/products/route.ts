@@ -6,12 +6,14 @@ export interface ProductProps {
     brand: string
     title: string
     category: string
+    available: number
     description: string
     id: string
     cod_product: string
     amount: number
     images: string[]
     quantity?: number
+    showItem: boolean
 }
 
 export async function GET() {
@@ -30,6 +32,8 @@ export async function GET() {
                     cod_product: prod.data().cod_product,
                     amount: prod.data().amount,
                     images: prod.data().images,
+                    available: prod.data().available,
+                    showItem: prod.data().showItem,
                 })
             })
         })

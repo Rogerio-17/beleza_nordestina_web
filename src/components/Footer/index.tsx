@@ -19,6 +19,7 @@ export function Footer() {
                         <Link
                             href="https://www.rogeriojose.com.br"
                             textDecoration="underline !important"
+                            target="_blank"
                         >
                             Rogério José
                         </Link>

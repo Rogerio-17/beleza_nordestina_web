@@ -6,12 +6,14 @@ export interface ProductProps {
     brand: string
     title: string
     category: string
+    available: number
     description: string
     id: string
     cod_product: string
     amount: number
     images: string[]
     quantity?: number
+    showItem: boolean
 }
 
 export interface CreateDataProductProps {

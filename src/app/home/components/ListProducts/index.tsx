@@ -14,7 +14,11 @@ export function ListProducts({ products }: ListProductsProps) {
                     Nenhum produto encontrado!
                 </Text>
             ) : (
-                products.map((item) => <CardProduct key={item.id} data={item} />)
+                products.map((item) => {
+                    if (item.showItem && item.available > 0) {
+                        return <CardProduct key={item.id} data={item} />
+                    }
+                })
             )}
         </Flex>
     )

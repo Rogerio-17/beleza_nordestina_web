@@ -99,6 +99,7 @@ export function CardForBag({ product, quantity: q }: { product: ProductProps; qu
                 <Show above="lg">
                     <Flex alignItems="center">
                         <CountComponent
+                            available={product.available}
                             sizeComponent="md"
                             handleQuantity={handleQuantity}
                             quantity={quantity}
@@ -130,6 +131,7 @@ export function CardForBag({ product, quantity: q }: { product: ProductProps; qu
                 <Hide above="lg">
                     <Flex alignItems="center" mt={{ base: '12px', lg: 'unset' }}>
                         <CountComponent
+                            available={product.available}
                             sizeComponent="sm"
                             handleQuantity={handleQuantity}
                             quantity={quantity}

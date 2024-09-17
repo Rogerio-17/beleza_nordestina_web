@@ -8,12 +8,14 @@ interface CountComponentProps extends FlexProps {
     quantity?: number
     handleQuantity: (quantity: number) => void
     sizeComponent: 'sm' | 'md'
+    available?: number
 }
 
 export function CountComponent({
     quantity,
     handleQuantity,
     sizeComponent,
+    available,
     ...props
 }: CountComponentProps) {
     const [count, setCount] = useState(quantity || 1)
@@ -62,6 +64,7 @@ export function CountComponent({
             </Button>
             {count}
             <Button
+                isDisabled={available ? count >= available : false}
                 minW={0}
                 minH={0}
                 h={sizeComponent === 'sm' ? '20px' : '30px'}

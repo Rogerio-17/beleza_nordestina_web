@@ -79,7 +79,11 @@ export function ListDetails({ productDetail }: ListDetailsProps) {
                 bottom="0px"
                 w="100%"
             >
-                <CountComponent handleQuantity={handleQuantity} sizeComponent="md" />
+                <CountComponent
+                    available={productDetail.available}
+                    handleQuantity={handleQuantity}
+                    sizeComponent="md"
+                />
                 <ButtonComponent onClick={() => handleSaveInLocalStorage(addProduct)}>
                     Adicionar
                 </ButtonComponent>

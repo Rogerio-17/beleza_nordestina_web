@@ -1,5 +1,5 @@
 'use client'
-import { Flex, FlexProps, Image, Text } from '@chakra-ui/react'
+import { Flex, FlexProps, Hide, Image, Show, Tag, TagLabel, Text } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { ButtonComponent } from '../ButtonComponent'
 import { CountComponent } from '../CountComponent'
@@ -45,6 +45,7 @@ export function CardProduct({ data }: CardProductProps) {
                 href={`/details/${data?.id}`}
                 w={{ base: '160px', lg: '100%' }}
                 cursor="pointer"
+                position="relative"
             >
                 <Image
                     src={!!data?.images && data.images[0]}
@@ -52,6 +53,36 @@ export function CardProduct({ data }: CardProductProps) {
                     w={{ base: '120px', lg: '100%' }}
                     borderRadius="10px"
                 />
+
+                {data.available === 1 && (
+                    <>
+                        <Show above="lg">
+                            <Tag
+                                size="lg"
+                                colorScheme="red"
+                                borderRadius="full"
+                                position="absolute"
+                                right="5px"
+                                top="5px"
+                            >
+                                <TagLabel>Última unidade!</TagLabel>
+                            </Tag>
+                        </Show>
+
+                        <Hide above="lg">
+                            <Tag
+                                size="sm"
+                                colorScheme="red"
+                                borderRadius="10px"
+                                position="absolute"
+                                margin="auto"
+                                left={{ base: '8px', lg: 'unset' }}
+                            >
+                                <TagLabel>Última unidade!</TagLabel>
+                            </Tag>
+                        </Hide>
+                    </>
+                )}
             </Flex>
 
             <Flex flexDirection="column" w={{ base: '70%', lg: 'unset' }}>
@@ -62,12 +93,13 @@ export function CardProduct({ data }: CardProductProps) {
                     as={NextLink}
                     href={`/details/${data?.id}`}
                     cursor="pointer"
-                    h={{ base: '90px', lg: '95px' }}
+                    h={{ base: '95px', lg: '100px' }}
+                    position="relative"
                 >
                     <Text
                         textAlign={{ base: 'left', lg: 'center' }}
                         fontSize="1rem"
-                        lineHeight="16px"
+                        lineHeight="normal"
                         fontWeight="700"
                         sx={{
                             display: '-webkit-box',
@@ -83,6 +115,7 @@ export function CardProduct({ data }: CardProductProps) {
                         textAlign="left"
                         fontSize={{ base: '0.75rem', lg: '0.875rem' }}
                         color="#818181"
+                        lineHeight="normal"
                         sx={{
                             display: '-webkit-box',
                             overflow: 'hidden',
@@ -108,7 +141,11 @@ export function CardProduct({ data }: CardProductProps) {
             </Flex>
 
             <Flex gap="8px" w="95%" alignItems="flex-end" position="absolute" bottom="14px">
-                <CountComponent handleQuantity={handleQuantity} sizeComponent="md" />
+                <CountComponent
+                    available={data.available}
+                    handleQuantity={handleQuantity}
+                    sizeComponent="md"
+                />
                 <ButtonComponent onClick={() => handleSaveInLocalStorage({ ...data, quantity })}>
                     Adicionar
                 </ButtonComponent>

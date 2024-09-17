@@ -38,7 +38,7 @@ export function HomePage() {
             <Header />
             <Flex flexDirection="column">
                 <HeroSection />
-                <Center mt="1rem" gap="1.5rem" flexDirection="column">
+                <Center mt="1rem" gap="1.5rem" flexDirection="column" minH="40vh">
                     <Filters handleFilter={handleFilter} />
                     <ListProducts products={!productsFiltered ? filteredData : productsFiltered} />
                 </Center>

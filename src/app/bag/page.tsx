@@ -39,7 +39,11 @@ export default function Bag() {
     return (
         <>
             <Header />
-            <Center flexDirection="column" mt={{ base: '0.5rem', lg: '1rem' }}>
+            <Center
+                flexDirection="column"
+                mt={{ base: '0.5rem', lg: '1rem' }}
+                h={{ base: 'unset', lg: '70vh' }}
+            >
                 <Text
                     fontSize={{ base: '1.5rem', lg: '2rem' }}
                     fontWeight="600"
