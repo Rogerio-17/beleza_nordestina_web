@@ -56,7 +56,12 @@ export function ListDetails({ productDetail }: ListDetailsProps) {
                 <Text fontSize={{ base: '0.875rem', lg: '1rem' }} color="gray.600" mb="1rem">
                     {productDetail.description}
                 </Text>
-                <Text fontSize="0.875rem">Cód: ({productDetail.cod_product})</Text>
+                <Flex flexDirection="column">
+                    <Text fontSize="0.875rem">Cód: ({productDetail.cod_product})</Text>
+                    <Text fontSize="0.875rem" fontWeight="500">
+                        Em estoque: {productDetail.available}
+                    </Text>
+                </Flex>
             </Flex>
             <Divider />
             <Flex mt="0.5rem" flexDirection="column">

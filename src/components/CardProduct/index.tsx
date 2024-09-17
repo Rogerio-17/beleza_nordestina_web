@@ -75,8 +75,6 @@ export function CardProduct({ data }: CardProductProps) {
                                 colorScheme="red"
                                 borderRadius="10px"
                                 position="absolute"
-                                margin="auto"
-                                left={{ base: '8px', lg: 'unset' }}
                             >
                                 <TagLabel>Última unidade!</TagLabel>
                             </Tag>
