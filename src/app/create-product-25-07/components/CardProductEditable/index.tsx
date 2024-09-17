@@ -1,13 +1,16 @@
-import { Button, Flex, Image, Text } from '@chakra-ui/react'
+import { Button, Flex, Image, Text, useDisclosure } from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { BinIcon } from '@/Icons/BinIcon'
 import { ProductProps, useProducts } from '@/hooks/useProducts'
+import { EditIcon } from '@/Icons/EditIcon'
+import { DrawerEditProduct } from '@/components/DrawerEditeProduct'
 
 interface CardProductEditableProps {
     product: ProductProps
 }
 
 export function CardProductEditable({ product }: CardProductEditableProps) {
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const { deleteProduct } = useProducts()
 
     function handleDeleteProduct() {
@@ -60,14 +63,11 @@ export function CardProductEditable({ product }: CardProductEditableProps) {
                 >
                     <BinIcon w="26px" h="26px" />
                 </Button>
-                {/* <Button
-                    bg="transparent"
-                    _hover={{ opacity: 0.85 }}
-                    _active="none"
-                    onClick={() => {}}
-                >
+                <Button bg="transparent" _hover={{ opacity: 0.85 }} _active="none" onClick={onOpen}>
                     <EditIcon w="26px" h="26px" />
-                </Button> */}
+                </Button>
+
+                <DrawerEditProduct isOpen={isOpen} onClose={onClose} product={product} />
             </Flex>
         </Flex>
     )

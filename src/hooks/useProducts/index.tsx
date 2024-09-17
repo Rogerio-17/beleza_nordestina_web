@@ -33,6 +33,10 @@ export interface CreateDataProductProps {
 interface DeleteProductDataProps {
     id: string
 }
+interface UpdateProductDataProps {
+    id: string
+    product: CreateDataProductProps
+}
 
 interface ProductsContextType {
     products: ProductProps[]
@@ -40,6 +44,7 @@ interface ProductsContextType {
     createProduct: ({ product }: CreateProductProps) => void
     deleteProduct: ({ id }: DeleteProductDataProps) => void
     searchProduct: (search: string) => void
+    updateProduct: ({ id, product }: UpdateProductDataProps) => void
 }
 
 interface CreateProductProps {
@@ -93,6 +98,22 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
         }
     }, [])
 
+    const updateProduct = useCallback(
+        async ({ id, product }: UpdateProductDataProps): Promise<void> => {
+            try {
+                await api.patch(`/products/${id}`, {
+                    product,
+                })
+                setUpdate(true)
+                toast.success('Produto atualizado com sucesso')
+            } catch (err) {
+                toast.error('Erro ao atualizar produto')
+                throw new Error(`Error ao atualizar produto`)
+            }
+        },
+        []
+    )
+
     const searchProduct = (search: string) => {
         if (!!search) {
             const filtered = products.filter(
@@ -115,6 +136,7 @@ export const ProductsApiProvider = ({ children }: { children: React.ReactNode })
                 createProduct,
                 deleteProduct,
                 searchProduct,
+                updateProduct,
             }}
         >
             {children}
