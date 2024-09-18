@@ -55,43 +55,29 @@ export function CardProduct({ data }: CardProductProps) {
                 />
 
                 {data.available === 1 && (
-                    <>
-                        <Show above="lg">
-                            <Tag
-                                size="lg"
-                                colorScheme="red"
-                                borderRadius="full"
-                                position="absolute"
-                                right="5px"
-                                top="5px"
-                            >
-                                <TagLabel>Última unidade!</TagLabel>
-                            </Tag>
-                        </Show>
-
-                        <Hide above="lg">
-                            <Tag
-                                size="sm"
-                                colorScheme="red"
-                                borderRadius="10px"
-                                position="absolute"
-                            >
-                                <TagLabel>Última unidade!</TagLabel>
-                            </Tag>
-                        </Hide>
-                    </>
+                    <Show above="lg">
+                        <Tag
+                            size="lg"
+                            colorScheme="red"
+                            borderRadius="full"
+                            position="absolute"
+                            right="5px"
+                            top="5px"
+                        >
+                            <TagLabel>Última unidade!</TagLabel>
+                        </Tag>
+                    </Show>
                 )}
             </Flex>
 
             <Flex flexDirection="column" w={{ base: '70%', lg: 'unset' }}>
                 <Flex
                     flexDirection="column"
-                    mt="0.4rem"
                     gap="0.2rem"
                     as={NextLink}
                     href={`/details/${data?.id}`}
                     cursor="pointer"
-                    h={{ base: '95px', lg: '100px' }}
+                    h={{ base: '100px', lg: '100px' }}
                     position="relative"
                 >
                     <Text
@@ -125,6 +111,14 @@ export function CardProduct({ data }: CardProductProps) {
                     </Text>
 
                     <ShowStars stars={stars} />
+
+                    {data.available === 1 && (
+                        <Hide above="lg">
+                            <Tag size="sm" w="6.5rem" colorScheme="red" borderRadius="10px">
+                                <TagLabel>Última unidade!</TagLabel>
+                            </Tag>
+                        </Hide>
+                    )}
                 </Flex>
 
                 <Text
