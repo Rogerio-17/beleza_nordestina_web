@@ -64,7 +64,7 @@ export function CountComponent({
             </Button>
             {count}
             <Button
-                isDisabled={available ? count >= available : false}
+                isDisabled={available ? count >= available : false || available! <= 0}
                 minW={0}
                 minH={0}
                 h={sizeComponent === 'sm' ? '20px' : '30px'}

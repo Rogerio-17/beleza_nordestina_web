@@ -39,9 +39,13 @@ export function RelatedProducts({ products }: RelatedProductsProps) {
             </Text>
 
             <Flex gap="1rem" flexDirection={{ base: 'column', lg: 'row' }} justifyContent="center">
-                {products.map((product) => (
-                    <CardProduct data={product} key={product.id} />
-                ))}
+                {products.length > 0 ? (
+                    products.map((product) => <CardProduct data={product} key={product.id} />)
+                ) : (
+                    <Text fontSize="0.8rem" color="#818181">
+                        Nenhum produto relacionado
+                    </Text>
+                )}
             </Flex>
         </Flex>
     )

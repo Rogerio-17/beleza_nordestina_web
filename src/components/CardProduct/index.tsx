@@ -58,13 +58,29 @@ export function CardProduct({ data }: CardProductProps) {
                     <Show above="lg">
                         <Tag
                             size="lg"
-                            colorScheme="red"
+                            bg="#32CD32"
+                            color="white"
                             borderRadius="full"
                             position="absolute"
                             right="5px"
                             top="5px"
                         >
                             <TagLabel>Última unidade!</TagLabel>
+                        </Tag>
+                    </Show>
+                )}
+
+                {data.available <= 0 && (
+                    <Show above="lg">
+                        <Tag
+                            size="lg"
+                            colorScheme="red"
+                            borderRadius="full"
+                            position="absolute"
+                            right="5px"
+                            top="5px"
+                        >
+                            <TagLabel lineHeight="normal">Produto esgotado!</TagLabel>
                         </Tag>
                     </Show>
                 )}
@@ -114,8 +130,22 @@ export function CardProduct({ data }: CardProductProps) {
 
                     {data.available === 1 && (
                         <Hide above="lg">
-                            <Tag size="sm" w="6.5rem" colorScheme="red" borderRadius="10px">
+                            <Tag
+                                size="sm"
+                                w="6.5rem"
+                                bg="#32CD32"
+                                color="white"
+                                borderRadius="10px"
+                            >
                                 <TagLabel>Última unidade!</TagLabel>
+                            </Tag>
+                        </Hide>
+                    )}
+
+                    {data.available <= 0 && (
+                        <Hide above="lg">
+                            <Tag size="sm" colorScheme="red" borderRadius="10px" w="7.5rem">
+                                <TagLabel lineHeight="normal">Produto esgotado!</TagLabel>
                             </Tag>
                         </Hide>
                     )}
@@ -138,8 +168,11 @@ export function CardProduct({ data }: CardProductProps) {
                     handleQuantity={handleQuantity}
                     sizeComponent="md"
                 />
-                <ButtonComponent onClick={() => handleSaveInLocalStorage({ ...data, quantity })}>
-                    Adicionar
+                <ButtonComponent
+                    isDisabled={data.available <= 0}
+                    onClick={() => handleSaveInLocalStorage({ ...data, quantity })}
+                >
+                    {data.available >= 1 ? 'Comprar' : 'Indisponível'}
                 </ButtonComponent>
             </Flex>
         </Flex>

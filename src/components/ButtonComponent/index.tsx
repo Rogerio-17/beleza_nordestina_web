@@ -16,6 +16,12 @@ export function ButtonComponent({ children, ...props }: ButtonComponentProps) {
             w="100%"
             textAlign="center"
             p="10px"
+            _disabled={{
+                cursor: 'not-allowed',
+                bg: 'green',
+                opacity: 0.5,
+                color: '#fff',
+            }}
             {...props}
         >
             {children}

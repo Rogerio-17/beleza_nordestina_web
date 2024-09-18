@@ -22,6 +22,8 @@ export default function Bag() {
     const { arrayProduct } = useProductsContext()
     const [totalItens, setTotalItens] = useState<number>(0)
     const [totalAmount, setTotalAmount] = useState<number>(0)
+    const { updateProduct } = useProducts()
+
     const route = useRouter()
 
     useEffect(() => {
@@ -35,6 +37,21 @@ export default function Bag() {
     const numberWhatsapp = '5584988103345'
     //const numberWhatsapp = '5584981301382'
     const url = `https://wa.me/${numberWhatsapp}?text=${messageWhatsapp}`
+
+    async function handleUpdateProduct() {
+        await arrayProduct.forEach(async (item) => {
+            if (item.quantity) {
+                const dataUpdate = {
+                    ...item,
+                    available: item.available - item.quantity,
+                }
+
+                await updateProduct({ product: dataUpdate, id: item.id })
+            }
+        })
+
+        localStorage.clear()
+    }
 
     return (
         <>
@@ -119,7 +136,13 @@ export default function Bag() {
                         justifyContent={{ base: 'center', lg: 'unset' }}
                         gap="0.5rem"
                     >
-                        <ButtonComponent as={Link} href={url} target="_blank" w="10rem">
+                        <ButtonComponent
+                            as={Link}
+                            href={url}
+                            target="_blank"
+                            w="10rem"
+                            onClick={() => handleUpdateProduct()}
+                        >
                             Finalizar compra
                         </ButtonComponent>
                         <Button bg="gray.300" color="#494949" onClick={() => route.push('/')}>

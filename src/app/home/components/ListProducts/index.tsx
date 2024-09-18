@@ -15,7 +15,7 @@ export function ListProducts({ products }: ListProductsProps) {
                 </Text>
             ) : (
                 products.map((item) => {
-                    if (item.showItem && item.available > 0) {
+                    if (item.showItem) {
                         return <CardProduct key={item.id} data={item} />
                     }
                 })

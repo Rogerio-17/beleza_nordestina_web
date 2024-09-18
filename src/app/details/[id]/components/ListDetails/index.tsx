@@ -89,7 +89,10 @@ export function ListDetails({ productDetail }: ListDetailsProps) {
                     handleQuantity={handleQuantity}
                     sizeComponent="md"
                 />
-                <ButtonComponent onClick={() => handleSaveInLocalStorage(addProduct)}>
+                <ButtonComponent
+                    isDisabled={productDetail.available <= 0}
+                    onClick={() => handleSaveInLocalStorage(addProduct)}
+                >
                     Adicionar
                 </ButtonComponent>
             </Flex>

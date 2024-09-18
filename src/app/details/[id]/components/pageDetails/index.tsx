@@ -36,7 +36,7 @@ export function PageDetails({ params }: DetailsProps) {
     const productComments = comments.filter((comment) => comment.idProduct === params.id)
     const filterProductDetail = products.filter((product) => params.id === product.id)
     const fourFirstProductComments = productComments.slice(0, 4)
-    const fourFirstProducts = products.slice(0, 4)
+    const fourFirstProducts = products.filter((item) => item.available >= 1).slice(0, 4)
 
     return (
         <>
