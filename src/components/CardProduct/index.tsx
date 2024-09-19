@@ -52,8 +52,8 @@ export function CardProduct({ data }: CardProductProps) {
         return message
     }
     const messageWhatsapp = genereteMessage()
-    //const numberWhatsapp = '5584988103345'
-    const numberWhatsapp = '5584981301382'
+    const numberWhatsapp = '5584988103345'
+    //const numberWhatsapp = '5584981301382'
     const url = `https://wa.me/${numberWhatsapp}?text=${encodeURIComponent(messageWhatsapp)}`
 
     return (
