@@ -182,11 +182,7 @@ export function CardProduct({ data }: CardProductProps) {
                     )}
                 </Flex>
 
-                <Flex
-                    alignItems="center"
-                    justifyContent={{ base: 'unset', lg: 'center' }}
-                    gap="0.3rem"
-                >
+                <Flex alignItems="center" justifyContent={{ base: 'unset', lg: 'center' }}>
                     {data.available <= 0 && (
                         <Menu>
                             <MenuButton
@@ -203,6 +199,7 @@ export function CardProduct({ data }: CardProductProps) {
                             >
                                 {' '}
                                 <InformationIcon
+                                    color="green"
                                     w={{ base: '18px', md: '22px' }}
                                     h={{ base: '18px', md: '22px' }}
                                 />
