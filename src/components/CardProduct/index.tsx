@@ -1,5 +1,19 @@
 'use client'
-import { Flex, FlexProps, Hide, Image, Show, Tag, TagLabel, Text } from '@chakra-ui/react'
+import {
+    Button,
+    Flex,
+    FlexProps,
+    Hide,
+    Image,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Show,
+    Tag,
+    TagLabel,
+    Text,
+} from '@chakra-ui/react'
 import { FormatPrice } from '@/utils/FormatPrice'
 import { ButtonComponent } from '../ButtonComponent'
 import { CountComponent } from '../CountComponent'
@@ -10,6 +24,8 @@ import { ProductProps } from '@/hooks/useProducts'
 import { ShowStars } from '../ShowStars'
 import { useComments } from '@/hooks/useComments'
 import { ToTalStars } from '@/utils/TotalStarsFormatter'
+import Link from 'next/link'
+import { InformationIcon } from '@/Icons/InformationIcon'
 
 interface CardProductProps extends FlexProps {
     data: ProductProps
@@ -25,6 +41,20 @@ export function CardProduct({ data }: CardProductProps) {
     }
 
     const { stars } = ToTalStars({ comments, idProduct: data.id })
+
+    const genereteMessage = () => {
+        let message = `Olá! Gostaria de *fazer pedido* do item abaixo:\n\n`
+
+        message += `*Produto:* ${data.brand} - ${data.title}\n`
+        message += `*Descrição:* ${data.description}\n`
+
+        // Retornar a message sem codificação
+        return message
+    }
+    const messageWhatsapp = genereteMessage()
+    //const numberWhatsapp = '5584988103345'
+    const numberWhatsapp = '5584981301382'
+    const url = `https://wa.me/${numberWhatsapp}?text=${encodeURIComponent(messageWhatsapp)}`
 
     return (
         <Flex
@@ -101,11 +131,12 @@ export function CardProduct({ data }: CardProductProps) {
                         fontSize="1rem"
                         lineHeight="normal"
                         fontWeight="700"
+                        mt={{ base: 'unset', lg: '5px' }}
                         sx={{
                             display: '-webkit-box',
                             overflow: 'hidden',
                             WebkitBoxOrient: 'vertical',
-                            WebkitLineClamp: 2, // número de linhas
+                            WebkitLineClamp: 1, // número de linhas
                         }}
                     >
                         {data?.title}
@@ -151,23 +182,71 @@ export function CardProduct({ data }: CardProductProps) {
                     )}
                 </Flex>
 
-                <Text
-                    textAlign={{ base: 'left', lg: 'center' }}
-                    fontSize="1.5rem"
-                    fontWeight="bold"
-                    color="green"
-                    display="block"
+                <Flex
+                    alignItems="center"
+                    justifyContent={{ base: 'unset', lg: 'center' }}
+                    gap="0.3rem"
                 >
-                    {FormatPrice(data?.amount ? data.amount : 0)}
-                </Text>
+                    {data.available <= 0 && (
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                w="14px"
+                                h="14px"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                p="0px"
+                                bg="transparent"
+                                _active={{ bg: 'transparent' }}
+                                _hover={{ bg: 'transparent' }}
+                            >
+                                {' '}
+                                <InformationIcon
+                                    w={{ base: '18px', md: '22px' }}
+                                    h={{ base: '18px', md: '22px' }}
+                                />
+                            </MenuButton>
+                            <MenuList>
+                                <Text color="green" px="0.5rem">
+                                    O valor deste produto pode variar
+                                    <br /> de acordo com o fornecedor.
+                                </Text>
+                            </MenuList>
+                        </Menu>
+                    )}
+                    <Text
+                        textAlign={{ base: 'left', lg: 'center' }}
+                        fontSize="1.5rem"
+                        fontWeight="bold"
+                        color="green"
+                        display="block"
+                        textDecoration={data.available <= 0 ? 'line-through' : 'unset'}
+                    >
+                        {FormatPrice(data?.amount ? data.amount : 0)}
+                    </Text>
+                </Flex>
             </Flex>
 
             <Flex gap="8px" w="95%" alignItems="flex-end" position="absolute" bottom="14px">
-                <CountComponent
-                    available={data.available}
-                    handleQuantity={handleQuantity}
-                    sizeComponent="md"
-                />
+                {data.available <= 0 ? (
+                    <ButtonComponent
+                        as={Link}
+                        href={url}
+                        target="_blank"
+                        bg="transparent"
+                        border="1px solid green"
+                        color="green"
+                    >
+                        Fazer pedido
+                    </ButtonComponent>
+                ) : (
+                    <CountComponent
+                        available={data.available}
+                        handleQuantity={handleQuantity}
+                        sizeComponent="md"
+                    />
+                )}
                 <ButtonComponent
                     isDisabled={data.available <= 0}
                     onClick={() => handleSaveInLocalStorage({ ...data, quantity })}

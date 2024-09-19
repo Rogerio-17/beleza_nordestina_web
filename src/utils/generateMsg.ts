@@ -1,7 +1,7 @@
 import { ProductProps } from '@/hooks/useProducts'
 
 export function generateMessageRequest(produtos: ProductProps[]) {
-    let mensagem = `Olá! Gostaria de fazer um pedido com os seguintes itens:\n\n`
+    let mensagem = `Olá! Gostaria de *finalizar a compra* dos seguintes itens:\n\n`
     let total = 0
 
     produtos.forEach((produto, index) => {
